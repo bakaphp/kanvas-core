@@ -1,0 +1,20 @@
+<?php
+
+namespace Kanvas\Http\Controllers\Apps;
+
+use Illuminate\Http\Request;
+use Kanvas\Apps\Models\Roles;
+use Kanvas\Http\Controllers\BaseController;
+
+class RolesController extends BaseController
+{
+    /**
+     * Fetch all apps
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return Roles::all();
+    }
+}

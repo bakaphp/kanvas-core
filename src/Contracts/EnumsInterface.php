@@ -1,5 +1,7 @@
 <?php
 
+namespace Kanvas\Contracts;
+
 /**
  * EnumsInterface
  */

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Kanvas\Apps\Models;
+namespace Kanvas\Apps\Roles\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Settings extends EloquentModel
+class Roles extends EloquentModel
 {
     use HasFactory;
     
@@ -15,9 +15,8 @@ class Settings extends EloquentModel
      *
      * @var string
      */
-    protected $table = 'apps_settings';
+    protected $table = 'apps_roles';
 
     public int $apps_id;
-    public string $name;
-    public string $value;
+    public string $roles_name;
 }

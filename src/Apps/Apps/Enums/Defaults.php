@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Apps\Enums;
+namespace Kanvas\Apps\Apps\Enums;
 
-use Kanvas\Enums\EnumsInterface;
+use Kanvas\Contracts\EnumsInterface;
 
-enum AppDefaults implements EnumsInterface
+enum Defaults implements EnumsInterface
 {
     case CORE_APP_ID;
     case ECOSYSTEM_APP_ID;

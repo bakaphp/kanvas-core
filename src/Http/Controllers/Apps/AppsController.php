@@ -3,8 +3,9 @@
 namespace Kanvas\Http\Controllers\Apps;
 
 use Illuminate\Http\Request;
-use Kanvas\Apps\Models\Apps;
-use Kanvas\Apps\Dto\AppsData;
+use Kanvas\Apps\Apps\Models\Apps;
+use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
+use Illuminate\Http\Response;
 use Kanvas\Http\Controllers\BaseController;
 
 class AppsController extends BaseController
@@ -26,11 +27,17 @@ class AppsController extends BaseController
      */
     public function create(Request $request)
     {
-        $data = new AppsData($request->all());
+        $data = AppsPostData::fromRequest($request);
 
-        print_r($data);
-        die();
+        $app = new Apps();
+        $app->url = $data->url;
+        $app->is_actived = $data->is_actived;
+        $app->ecosystem_auth = $data->ecosystem_auth;
+        $app->payments_active = $data->payments_active;
+        $app->is_public = $data->is_public;
+        $app->settings = $data->settings;
+        $app->save();
 
-        return Apps::all();
+        return $app;
     }
 }

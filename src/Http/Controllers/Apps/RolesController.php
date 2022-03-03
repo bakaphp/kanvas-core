@@ -4,6 +4,7 @@ namespace Kanvas\Http\Controllers\Apps;
 
 use Illuminate\Http\Request;
 use Kanvas\Apps\Models\Roles;
+use Illuminate\Http\Response;
 use Kanvas\Http\Controllers\BaseController;
 
 class RolesController extends BaseController
@@ -13,7 +14,7 @@ class RolesController extends BaseController
      *
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return Roles::all();
     }

@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Kanvas\Apps\Settings\Models;
 
-use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Kanvas\Models\BaseModel;
 
-class Settings extends EloquentModel
+class Settings extends BaseModel
 {
-    use HasFactory;
     
     /**
      * The table associated with the model.

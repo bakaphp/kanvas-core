@@ -16,6 +16,6 @@ class RolesController extends BaseController
      */
     public function index(): Response
     {
-        return Roles::all();
+        return response(Roles::all());
     }
 }

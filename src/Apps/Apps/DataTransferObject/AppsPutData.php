@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 /**
  * AppsData class
  */
-class AppsPostData extends DataTransferObject
+class AppsPutData extends DataTransferObject
 {
     /**
      * Construct function

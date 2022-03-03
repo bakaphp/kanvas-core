@@ -16,6 +16,6 @@ class SettingsController extends BaseController
      */
     public function index(): Response
     {
-        return Settings::all();
+        return response(Settings::all());
     }
 }

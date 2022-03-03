@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Kanvas\Apps\Apps\DataTransferObject;
 
 use Spatie\DataTransferObject\DataTransferObject;

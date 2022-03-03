@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kanvas\Providers;
 
 use Illuminate\Auth\Events\Registered;

@@ -50,10 +50,10 @@ class AppsPostData extends DataTransferObject
             name: $request->get('name'),
             url: $request->get('url'),
             description: $request->get('description'),
-            is_actived: $request->get('is_actived'),
-            ecosystem_auth: $request->get('ecosystem_auth'),
-            payments_active: $request->get('payments_active'),
-            is_public: $request->get('is_public'),
+            is_actived: (int)$request->get('is_actived'),
+            ecosystem_auth: (int)$request->get('ecosystem_auth'),
+            payments_active: (int)$request->get('payments_active'),
+            is_public: (int)$request->get('is_public'),
             settings: $request->get('settings')
         );
     }

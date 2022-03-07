@@ -5,7 +5,21 @@ declare(strict_types=1);
 namespace Kanvas\Apps\Apps\Models;
 
 use Kanvas\Models\BaseModel;
+use Kanvas\Apps\Settings\Models\Settings;
+use Kanvas\Apps\Roles\Models\Roles;
 
+/**
+ * Apps Model
+ *
+ * @property string $key
+ * @property string $url
+ * @property int $is_actived
+ * @property int $ecosystem_auth
+ * @property int $default_apps_plan_id
+ * @property int $payments_active
+ * @property int $is_public
+ * @property string $settings
+ */
 class Apps extends BaseModel
 {
     /**
@@ -15,12 +29,23 @@ class Apps extends BaseModel
      */
     protected $table = 'apps';
 
-    // public string $key;
-    // public string $url;
-    // public int $is_actived = 1;
-    // public int $ecosystem_auth = 0;
-    // public int $default_apps_plan_id = 0;
-    // public int $payments_active = 0;
-    // public int $is_public = 1;
-    // public string $settings;
+    /**
+     * Settings relationship
+     *
+     * @return hasMany
+     */
+    public function setting()
+    {
+        return $this->hasMany(Settings::class, 'apps_id');
+    }
+
+    /**
+     * Roles relationship
+     *
+     * @return Roles
+     */
+    public function roles()
+    {
+        return $this->hasMany(Roles::class, 'apps_id');
+    }
 }

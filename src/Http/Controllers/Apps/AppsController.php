@@ -8,77 +8,79 @@ use Illuminate\Http\Request;
 use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
 use Kanvas\Apps\Apps\DataTransferObject\AppsPutData;
-use Illuminate\Http\Response;
+use Kanvas\Apps\Apps\DataTransferObject\SingleResponseData;
+use Kanvas\Apps\Apps\DataTransferObject\CollectionResponseData;
+use Illuminate\Http\JsonResponse;
 use Kanvas\Http\Controllers\BaseController;
 use Kanvas\Apps\Apps\Actions\CreateAppsAction;
 use Kanvas\Apps\Apps\Actions\SaveAppsAction;
+use Kanvas\Apps\Apps\Actions\UpdateAppsAction;
 
 class AppsController extends BaseController
 {
     /**
      * Fetch all apps
      *
-     * @return Response
+     * @return JsonResponse
+     * @todo Need to move this pagination somewhere else.
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
-        return response(Apps::all());
+        $response = Apps::paginate(2);
+        $collection = CollectionResponseData::fromModelCollection($response->getCollection());
+
+        $response = [
+            "data" => $collection,
+            "current_page" => $response->currentPage(),
+            "total" => $response->total()
+        ];
+        return response()->json($response);
     }
 
     /**
      * Fetch all apps
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function show(int $id): Response
+    public function show(int $id): JsonResponse
     {
-        return response(Apps::findOrFail($id));
+        $app = Apps::findOrFail($id); // Query should be done before passing to dto ?
+        $response = SingleResponseData::fromModel($app);
+        return response()->json($response);
     }
 
     /**
      * Fetch all apps
      *
-     * @return Apps
+     * @return JsonResponse
      */
-    public function create(Request $request): Response
+    public function create(Request $request): JsonResponse
     {
         $data = AppsPostData::fromRequest($request);
         $createApp = new CreateAppsAction(new SaveAppsAction());
-        $app = $createApp($data);
-        return response($app);
+        return response()->json($createApp($data));
     }
 
     /**
      * Fetch all apps
      *
-     * @return Apps
+     * @return JsonResponse
      */
-    public function update(Request $request, int $id): Response
+    public function update(Request $request, int $id): JsonResponse
     {
-        $app = Apps::findOrFail($id);
         $data = AppsPutData::fromRequest($request);
-
-        $app->name = $data->name;
-        $app->url = $data->url;
-        $app->description = $data->description;
-        $app->is_actived = $data->is_actived;
-        $app->ecosystem_auth = $data->ecosystem_auth;
-        $app->payments_active = $data->payments_active;
-        $app->is_public = $data->is_public;
-        $app->settings = $data->settings;
-        $app->save();
-
-        return response($app);
+        $updateApp = new UpdateAppsAction();
+        return response()->json($updateApp($id, $data));
     }
 
     /**
      * Fetch all apps
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         Apps::findOrFail($id)->delete();
-        return response("Succesfully Deleted");
+        return response()->json("Succesfully Deleted");
     }
 }

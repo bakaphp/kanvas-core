@@ -5,7 +5,14 @@ declare(strict_types=1);
 namespace Kanvas\Apps\Roles\Models;
 
 use Kanvas\Models\BaseModel;
+use Kanvas\Apps\Apps\Models\Apps;
 
+/**
+ * AppsRoles Class
+ *
+ * @property int $apps_id
+ * @property string $roles_name
+ */
 class Roles extends BaseModel
 {
     
@@ -16,6 +23,13 @@ class Roles extends BaseModel
      */
     protected $table = 'apps_roles';
 
-    public int $apps_id;
-    public string $roles_name;
+    /**
+     * Apps relationship
+     *
+     * @return Apps
+     */
+    public function app(): Apps
+    {
+        return $this->belongsTo(Apps::class, 'apps_id');
+    }
 }

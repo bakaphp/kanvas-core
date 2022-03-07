@@ -6,6 +6,14 @@ namespace Kanvas\Apps\Settings\Models;
 
 use Kanvas\Models\BaseModel;
 
+/**
+ * AppsSettings Class
+ *
+ * @property int $apps_id
+ * @property string $name
+ * @property string $value
+ */
+
 class Settings extends BaseModel
 {
     
@@ -16,7 +24,13 @@ class Settings extends BaseModel
      */
     protected $table = 'apps_settings';
 
-    public int $apps_id;
-    public string $name;
-    public string $value;
+    /**
+     * Apps relationship
+     *
+     * @return Apps
+     */
+    public function app(): Apps
+    {
+        return $this->belongsTo(Apps::class, 'apps_id');
+    }
 }

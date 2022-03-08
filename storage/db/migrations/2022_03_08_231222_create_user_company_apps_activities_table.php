@@ -23,7 +23,7 @@ class CreateUserCompanyAppsActivitiesTable extends Migration
             $table->dateTime('updated_at')->nullable()->index('updated_at');
             $table->boolean('is_deleted')->nullable()->default(false)->index('is_deleted');
 
-            $table->primary(['companies_id', 'company_branches_id', 'apps_id', 'key']);
+            $table->primary(['companies_id', 'company_branches_id', 'apps_id', 'key'], 'user_activities_pri');
         });
     }
 

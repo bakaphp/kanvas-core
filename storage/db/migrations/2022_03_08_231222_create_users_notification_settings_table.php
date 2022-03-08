@@ -23,7 +23,7 @@ class CreateUsersNotificationSettingsTable extends Migration
             $table->dateTime('updated_at')->nullable()->index('updated_at');
             $table->tinyInteger('is_deleted')->default(0)->index('is_deleted');
 
-            $table->primary(['users_id', 'apps_id', 'notifications_types_id']);
+            $table->primary(['users_id', 'apps_id', 'notifications_types_id'], 'users_noti_type_pri');
             $table->index(['users_id', 'apps_id', 'notifications_types_id', 'is_deleted'], 'users_id_apps_id_notifications_types_id_is_deleted');
         });
     }

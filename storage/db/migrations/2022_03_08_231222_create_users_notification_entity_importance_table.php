@@ -25,7 +25,7 @@ class CreateUsersNotificationEntityImportanceTable extends Migration
 
             $table->index(['apps_id', 'users_id', 'entity_id', 'is_deleted'], 'apps_id_users_id_entity_id_is_deleted');
             $table->index(['apps_id', 'users_id', 'entity_id', 'system_modules_id', 'is_deleted'], 'apps_id_users_id_entity_system_module');
-            $table->primary(['apps_id', 'users_id', 'entity_id', 'system_modules_id']);
+            $table->primary(['apps_id', 'users_id', 'entity_id', 'system_modules_id'], 'user_notification_importan_pri');
         });
     }
 

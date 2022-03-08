@@ -22,7 +22,7 @@ class CreateResourcesAccessesTable extends Migration
             $table->dateTime('updated_at')->nullable()->index('updated_at');
             $table->integer('is_deleted')->default(0)->index('is_deleted');
 
-            $table->primary(['resources_id', 'resources_name', 'access_name', 'apps_id']);
+            $table->primary(['resources_id', 'resources_name', 'access_name', 'apps_id'], 'resource_access_pri');
         });
     }
 

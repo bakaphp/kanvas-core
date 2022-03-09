@@ -10,5 +10,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BaseModel extends EloquentModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 }

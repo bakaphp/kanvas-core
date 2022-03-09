@@ -19,6 +19,7 @@ class SingleResponseData extends DataTransferObject
      * @param string $name
      * @param string $url
      * @param string $description
+     * @param string $domain
      * @param int $is_actived
      * @param int $ecosystem_auth
      * @param int $payments_active
@@ -31,12 +32,14 @@ class SingleResponseData extends DataTransferObject
         public string $name,
         public string $url,
         public string $description,
+        public string $domain,
         public int $is_actived,
         public int $ecosystem_auth,
         public int $payments_active,
         public int $is_public,
-        public Collection $settings,
-        public Collection $roles
+        public int $domain_based,
+        public ?Collection $settings,
+        public ?Collection $roles
     ) {
     }
 
@@ -56,11 +59,13 @@ class SingleResponseData extends DataTransferObject
             name: $app->name,
             url: $app->url,
             description: $app->description,
+            domain: $app->domain,
             is_actived: $app->is_actived,
             ecosystem_auth: $app->ecosystem_auth,
             payments_active: $app->payments_active,
             is_public: $app->is_public,
-            settings: $app->setting->where('is_deleted', 0),
+            domain_based: $app->domain_based,
+            settings: $app->settings->where('is_deleted', 0),
             roles: $app->roles->where('is_deleted', 0)
         );
     }

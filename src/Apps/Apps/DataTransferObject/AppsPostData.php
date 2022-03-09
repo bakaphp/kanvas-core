@@ -19,21 +19,23 @@ class AppsPostData extends DataTransferObject
      * @param string $name
      * @param string $url
      * @param string $description
+     * @param string $domain
      * @param int $is_actived
      * @param int $ecosystem_auth
      * @param int $payments_active
      * @param int $is_public
-     * @param string $settings
+     * @param int $domain_based
      */
     public function __construct(
         public string $name,
         public string $url,
         public string $description,
+        public string $domain,
         public int $is_actived,
         public int $ecosystem_auth,
         public int $payments_active,
         public int $is_public,
-        public string $settings
+        public int $domain_based
     ) {
     }
 
@@ -50,11 +52,12 @@ class AppsPostData extends DataTransferObject
             name: $request->get('name'),
             url: $request->get('url'),
             description: $request->get('description'),
+            domain: $request->get('domain'),
             is_actived: (int)$request->get('is_actived'),
             ecosystem_auth: (int)$request->get('ecosystem_auth'),
             payments_active: (int)$request->get('payments_active'),
             is_public: (int)$request->get('is_public'),
-            settings: $request->get('settings')
+            domain_based: (int)$request->get('domain_based')
         );
     }
 }

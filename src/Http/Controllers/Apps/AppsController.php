@@ -29,6 +29,7 @@ class AppsController extends BaseController
         $response = Apps::paginate(2);
         $collection = CollectionResponseData::fromModelCollection($response->getCollection());
 
+        dd($response);
         $response = [
             "data" => $collection,
             "current_page" => $response->currentPage(),

@@ -13,12 +13,14 @@ use Kanvas\Apps\Roles\Models\Roles;
  *
  * @property string $key
  * @property string $url
+ * @property string $description
+ * @property string $domain
  * @property int $is_actived
  * @property int $ecosystem_auth
  * @property int $default_apps_plan_id
  * @property int $payments_active
  * @property int $is_public
- * @property string $settings
+ * @property int $domain_based
  */
 class Apps extends BaseModel
 {
@@ -34,7 +36,7 @@ class Apps extends BaseModel
      *
      * @return hasMany
      */
-    public function setting()
+    public function settings()
     {
         return $this->hasMany(Settings::class, 'apps_id');
     }

@@ -18,10 +18,10 @@ enum Defaults implements EnumsInterface
     case DEFAULT_COUNTRY;
     case VERSION;
 
-        public function getValue()
-        {
-            return match ($this) {
-                self::CORE_APP_ID => 1,
+    public function getValue(): mixed
+    {
+        return match ($this) {
+            self::CORE_APP_ID => 1,
                 self::ECOSYSTEM_APP_ID => 1,
                 self::GLOBAL_APP_ID => 10,
                 self::GLOBAL_COMPANY_ID => 0,
@@ -30,6 +30,6 @@ enum Defaults implements EnumsInterface
                 self::DEFAULT_ROLE_SETTING => 'default_admin_role',
                 self::DEFAULT_COUNTRY => 'default_user_country',
                 self::VERSION => 0.3,
-            };
-        }
+        };
+    }
 }

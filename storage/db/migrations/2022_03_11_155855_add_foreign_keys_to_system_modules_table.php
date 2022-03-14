@@ -15,7 +15,6 @@ class AddForeignKeysToSystemModulesTable extends Migration
     {
         Schema::table('system_modules', function (Blueprint $table) {
             $table->foreign(['apps_id'], 'system_modules_ibfk_1')->references(['id'])->on('apps')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['parents_id'], 'system_modules_ibfk_2')->references(['id'])->on('system_modules')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -28,7 +27,6 @@ class AddForeignKeysToSystemModulesTable extends Migration
     {
         Schema::table('system_modules', function (Blueprint $table) {
             $table->dropForeign('system_modules_ibfk_1');
-            $table->dropForeign('system_modules_ibfk_2');
         });
     }
 }

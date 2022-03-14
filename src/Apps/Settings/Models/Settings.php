@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kanvas\Apps\Settings\Models;
 
 use Kanvas\Models\BaseModel;
+use Kanvas\Apps\Apps\Models\Apps;
 
 /**
  * AppsSettings Class

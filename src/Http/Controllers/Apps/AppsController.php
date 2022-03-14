@@ -13,7 +13,6 @@ use Kanvas\Apps\Apps\DataTransferObject\CollectionResponseData;
 use Illuminate\Http\JsonResponse;
 use Kanvas\Http\Controllers\BaseController;
 use Kanvas\Apps\Apps\Actions\CreateAppsAction;
-use Kanvas\Apps\Apps\Actions\SaveAppsAction;
 use Kanvas\Apps\Apps\Actions\UpdateAppsAction;
 
 class AppsController extends BaseController
@@ -27,7 +26,7 @@ class AppsController extends BaseController
     public function index(): JsonResponse
     {
         $response = Apps::paginate(25);
-        $collection = CollectionResponseData::fromModelCollection($response->getCollection())
+        $collection = CollectionResponseData::fromModelCollection($response->getCollection());
 
         $response = [
             "data" => $collection,
@@ -57,8 +56,8 @@ class AppsController extends BaseController
     public function create(Request $request): JsonResponse
     {
         $data = AppsPostData::fromRequest($request);
-        $createApp = new CreateAppsAction(new SaveAppsAction());
-        return response()->json($createApp($data));
+        $app = new CreateAppsAction($data);
+        return response()->json($app->execute());
     }
 
     /**
@@ -69,8 +68,8 @@ class AppsController extends BaseController
     public function update(Request $request, int $id): JsonResponse
     {
         $data = AppsPutData::fromRequest($request);
-        $updateApp = new UpdateAppsAction();
-        return response()->json($updateApp($id, $data));
+        $app = new UpdateAppsAction($data);
+        return response()->json($app->execute($id));
     }
 
     /**

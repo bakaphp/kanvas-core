@@ -60,4 +60,26 @@ class AppsPostData extends DataTransferObject
             domain_based: (int)$request->get('domain_based')
         );
     }
+
+    /**
+     * Create new instance of DTO from Console Command
+     *
+     * @param array $data Input data
+     *
+     * @return self
+     */
+    public static function fromConsole(array $data): self
+    {
+        return new self(
+            name: $data['name'],
+            url: $data['url'],
+            description: $data['description'],
+            domain: $data['domain'],
+            is_actived: $data['is_actived'],
+            ecosystem_auth: $data['ecosystem_auth'],
+            payments_active: $data['payments_active'],
+            is_public: $data['is_public'],
+            domain_based: $data['domain_based']
+        );
+    }
 }

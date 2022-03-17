@@ -22,4 +22,4 @@ it('Create Apps Action', function () {
     $app = new CreateAppsAction($dtoData);
 
     $this->assertTrue($app->execute() instanceof Apps);
-});
+})->group('feature', 'apps');

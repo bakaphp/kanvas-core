@@ -43,6 +43,10 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-suggest
 
-      - name: Run Pest Tests
+      - name: Run Pest Unit Tests Group
         if: success()
-        run: vendor/bin/pest
+        run: vendor/bin/pest --group=unit
+
+      - name: Run Pest Feature Tests Group
+        if: success()
+        run: vendor/bin/pest --group=feature

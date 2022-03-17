@@ -24,4 +24,4 @@ it('Update Apps Action', function () {
     $updateApp = new UpdateAppsAction($dtoData);
 
     $this->assertTrue($updateApp->execute($app->id) instanceof Apps);
-});
+})->group('feature', 'apps');

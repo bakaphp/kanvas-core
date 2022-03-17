@@ -18,4 +18,4 @@ it('create AppsPostData Dto', function () {
     $dtoData = AppsPostData::fromArray($data);
 
     $this->assertTrue($dtoData instanceof AppsPostData);
-});
+})->group('unit', 'apps');

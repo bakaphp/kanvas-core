@@ -18,4 +18,4 @@ it('create AppsPutData Dto', function () {
     $dtoData = AppsPutData::fromArray($data);
 
     $this->assertTrue($dtoData instanceof AppsPutData);
-});
+})->group('unit', 'apps');

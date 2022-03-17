@@ -59,4 +59,26 @@ class AppsPutData extends DataTransferObject
             domain_based: (int)$request->get('domain_based')
         );
     }
+
+    /**
+     * Create new instance of DTO from array of data
+     *
+     * @param array $data Input data
+     *
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            name: $data['name'],
+            url: $data['url'],
+            description: $data['description'],
+            domain: $data['domain'],
+            is_actived: (int)$data['is_actived'],
+            ecosystem_auth: (int)$data['ecosystem_auth'],
+            payments_active: (int)$data['payments_active'],
+            is_public: (int)$data['is_public'],
+            domain_based: (int)$data['domain_based']
+        );
+    }
 }

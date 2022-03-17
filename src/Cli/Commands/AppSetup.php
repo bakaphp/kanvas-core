@@ -76,6 +76,6 @@ class AppSetup extends Command
         $this->info("App {$app->name} sucessfully created!");
         $this->newLine();
 
-        return 0;
+        return;
     }
 }

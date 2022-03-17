@@ -75,11 +75,33 @@ class AppsPostData extends DataTransferObject
             url: $data['url'],
             description: $data['description'],
             domain: $data['domain'],
-            is_actived: $data['is_actived'],
-            ecosystem_auth: $data['ecosystem_auth'],
-            payments_active: $data['payments_active'],
-            is_public: $data['is_public'],
-            domain_based: $data['domain_based']
+            is_actived: (int)$data['is_actived'],
+            ecosystem_auth: (int)$data['ecosystem_auth'],
+            payments_active: (int)$data['payments_active'],
+            is_public: (int)$data['is_public'],
+            domain_based: (int)$data['domain_based']
+        );
+    }
+
+    /**
+     * Create new instance of DTO from array of data
+     *
+     * @param array $data Input data
+     *
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            name: $data['name'],
+            url: $data['url'],
+            description: $data['description'],
+            domain: $data['domain'],
+            is_actived: (int)$data['is_actived'],
+            ecosystem_auth: (int)$data['ecosystem_auth'],
+            payments_active: (int)$data['payments_active'],
+            is_public: (int)$data['is_public'],
+            domain_based: (int)$data['domain_based']
         );
     }
 }

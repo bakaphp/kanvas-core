@@ -12,7 +12,7 @@ jobs:
         php-versions: ["8.1"]
     services:
       mysql:
-        image: mariadb:8.0
+        image: mariadb:10.4
         env:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: test

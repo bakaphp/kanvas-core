@@ -6,6 +6,11 @@ jobs:
   run-tests:
     name: PHP ${{ matrix.php-versions }}
     runs-on: ubuntu-latest
+    env:
+      DB_HOST: 127.0.0.1
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      DB_DATABASE: test
     strategy:
       fail-fast: false
       matrix:

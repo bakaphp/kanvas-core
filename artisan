@@ -19,7 +19,7 @@ require __DIR__.'/vendor/autoload.php';
 
 $app = require_once __DIR__.'/tests/bootstrap/app.php';
 $app->useEnvironmentPath(__DIR__);
-$app->databasePath('storage/database');
+$app->useDatabasePath(__DIR__ . '/storage/database');
 
 /*
 |--------------------------------------------------------------------------

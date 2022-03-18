@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ENV: local
-      DB_HOST: 172.18.0.1
+      DB_HOST: 127.0.0.1
       DB_USERNAME: root
       DB_PASSWORD: password
       DB_DATABASE: test
@@ -18,7 +18,7 @@ jobs:
         php-versions: ["8.1"]
     services:
       mysql:
-        image: "mysql/mysql-server:8.0"
+        image: mariadb:10.4
         env:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: test

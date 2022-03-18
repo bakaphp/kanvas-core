@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ENV: local
-      DB_HOST: 127.0.0.1
+      DB_HOST: 172.18.0.1
       DB_USERNAME: root
       DB_PASSWORD: password
       DB_DATABASE: test

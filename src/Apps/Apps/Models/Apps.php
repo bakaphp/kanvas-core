@@ -7,6 +7,7 @@ namespace Kanvas\Apps\Apps\Models;
 use Kanvas\Models\BaseModel;
 use Kanvas\Apps\Settings\Models\Settings;
 use Kanvas\Apps\Roles\Models\Roles;
+use Kanvas\Apps\Apps\Factories\AppsFactory;
 
 /**
  * Apps Model
@@ -30,6 +31,16 @@ class Apps extends BaseModel
      * @var string
      */
     protected $table = 'apps';
+
+    /**
+    * Create a new factory instance for the model.
+    *
+    * @return \Illuminate\Database\Eloquent\Factories\Factory
+    */
+    protected static function newFactory()
+    {
+        return AppsFactory::new();
+    }
 
     /**
      * Settings relationship

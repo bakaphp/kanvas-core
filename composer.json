@@ -17,9 +17,15 @@
         "laravel/framework": "^9.2",
         "spatie/data-transfer-object": "^3.7"
     },
+    "require-dev": {
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.2",
+        "vimeo/psalm": "^4.22",
+        "fakerphp/faker": "^1.9.1"
+    },
     "autoload": {
         "psr-4": {
-            "Kanvas\\": "src/"
+            "Kanvas\\": "src"
         }
     },
     "autoload-dev": {
@@ -28,11 +34,11 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "vimeo/psalm": "^4.22"
-    }
+    "prefer-stable": true
 }

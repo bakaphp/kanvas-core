@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Kanvas\Http\Controllers\BaseController;
 use Kanvas\Apps\Apps\Actions\CreateAppsAction;
 use Kanvas\Apps\Apps\Actions\UpdateAppsAction;
+use Kanvas\Enums\HttpDefaults;
 
 class AppsController extends BaseController
 {
@@ -25,11 +26,12 @@ class AppsController extends BaseController
      */
     public function index(): JsonResponse
     {
-        $response = Apps::paginate(25);
+        $limit = HttpDefaults::RECORDS_PER_PAGE;
+        $response = Apps::paginate($limit->getValue());
         $collection = CollectionResponseData::fromModelCollection($response->getCollection());
 
         $response = [
-            "data" => $collection,
+            "data" => $collection->data,
             "current_page" => $response->currentPage(),
             "total" => $response->total()
         ];

@@ -14,7 +14,7 @@ class AddForeignKeysToRolesTable extends Migration
     public function up()
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->foreign(['companies_id'], 'roles_ibfk_1')->references(['id'])->on('companies')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            // $table->foreign(['companies_id'], 'roles_ibfk_1')->references(['id'])->on('companies')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign(['apps_id'], 'roles_ibfk_2')->references(['id'])->on('apps')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
@@ -27,7 +27,7 @@ class AddForeignKeysToRolesTable extends Migration
     public function down()
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->dropForeign('roles_ibfk_1');
+            // $table->dropForeign('roles_ibfk_1');
             $table->dropForeign('roles_ibfk_2');
         });
     }

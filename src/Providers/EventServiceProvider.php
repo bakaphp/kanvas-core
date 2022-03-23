@@ -32,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
         \Kanvas\Apps\Apps\Models\Apps::observe(
             \Kanvas\Apps\Apps\Observers\AppsObserver::class
         );
+
+        \Kanvas\Users\Users\Models\Users::observe(
+            \Kanvas\Users\Users\Observers\UsersObserver::class
+        );
     }
 
     /**

@@ -6,6 +6,7 @@ namespace Kanvas\SystemModules\Models;
 
 use Kanvas\Models\BaseModel;
 use Kanvas\Apps\Apps\Models\Apps;
+use Kanvas\SystemModules\Factories\SystemModulesFactory;
 
 /**
  * Apps Model
@@ -33,6 +34,16 @@ class SystemModules extends BaseModel
      * @var string
      */
     protected $table = 'system_modules';
+
+    /**
+    * Create a new factory instance for the model.
+    *
+    * @return \Illuminate\Database\Eloquent\Factories\Factory
+    */
+    protected static function newFactory()
+    {
+        return SystemModulesFactory::new();
+    }
 
     /**
      * Apps relationship

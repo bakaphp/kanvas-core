@@ -4,6 +4,9 @@ namespace Kanvas\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Kanvas\Contracts\TokenTrait;
+use Kanvas\Sessions\Sessions\Models\Sessions;
+use Kanvas\Users\Users\Models\Users;
+use Lcobucci\JWT\Token;
 use Exception;
 
 class Authentication
@@ -15,23 +18,13 @@ class Authentication
      */
     public function handle(Request $request, Closure $next)
     {
-        // $config = $api->getService('config');
-
-        /**
-         * @todo need to find a way to get inject kanvas config into laravel configs
-         */
-        $config = config('kanvas');
-
         if (!empty($request->bearerToken())) {
             $token = $this->getToken($request->bearerToken());
         } else {
             throw new Exception('Missing Token');
         }
 
-        print_r($token);
-        die();
-
-        // $this->sessionUser($api, $config, $token, $request);
+        $this->sessionUser($token, $request);
 
         // $request->headers->set('Accept', 'application/json');
         return $next($request);
@@ -49,32 +42,27 @@ class Authentication
      *
      * @return void
      */
-    protected function sessionUser(Micro $api, array $config, Token $token, RequestInterface $request) : void
+    protected function sessionUser(Token $token, Request $request)
     {
-        $api->getDI()->setShared(
-            'userData',
-            function () use ($config, $token, $request) {
-                $session = new Sessions();
-                $userData = UserProvider::get();
+        $session = new Sessions();
+        $userData = new Users();
 
-                //all is empty and is dev, ok take use the first user
-                if (empty($token->claims()->get('sessionId')) && strtolower($config->app->env) == Flags::DEVELOPMENT) {
-                    return $userData->findFirst(1);
-                }
+        //all is empty and is dev, ok take use the first user
+        if (empty($token->claims()->get('sessionId')) && strtolower(config('kanvas.app.env')) == "development") {
+            return $userData->find(1);
+        }
 
-                if (!empty($token->claims()->get('sessionId'))) {
-                    //user
-                    if (!$user = $userData->getByEmail($token->claims()->get('email'))) {
-                        throw new UnauthorizedException('User not found');
-                    }
-
-                    $ip = !defined('API_TESTS') ? $request->getClientAddress(true) : '127.0.0.1';
-                    return $session->check($user, $token->claims()->get('sessionId'), (string) $ip, 1);
-                } else {
-                    throw new UnauthorizedException('User not found');
-                }
+        if (!empty($token->claims()->get('sessionId'))) {
+            if (!$user = $userData->getByEmail($token->claims()->get('email'))) {
+                throw new Exception('User not found');
             }
-        );
+
+            $ip = !defined('API_TESTS') ? $request->ip() : '127.0.0.1';
+            return $session->check($user, $token->claims()->get('sessionId'), (string) $ip, 1);
+        } else {
+            throw new Exception('User not found');
+        }
+
 
         /**
          * This is where we will validate the token that was sent to us
@@ -83,7 +71,7 @@ class Authentication
          * Find the user attached to this token
          */
         if (!Users::validateJwtToken($token)) {
-            throw new UnauthorizedException('Invalid Token');
+            throw new Exception('Invalid Token');
         }
     }
 }

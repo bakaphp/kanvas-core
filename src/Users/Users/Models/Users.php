@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kanvas\Users\Users\Models;
 
 use Kanvas\Models\BaseModel;
+use Exception;
 
 /**
  * Apps Model
@@ -63,4 +64,35 @@ class Users extends BaseModel
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * Get User's email
+     *
+     * @return string
+     */
+    public function getEmail() : string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get user by there email address.
+     *
+     * @return self
+     */
+    public static function getByEmail(string $email) : self
+    {
+        $user = self::where(
+            [
+            'email' => $email,
+            'is_deleted' => 0
+            ]
+        )->first();
+
+        if (!$user) {
+            throw new Exception('No User Found');
+        }
+
+        return $user;
+    }
 }

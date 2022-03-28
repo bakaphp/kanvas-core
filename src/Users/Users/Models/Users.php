@@ -95,4 +95,24 @@ class Users extends BaseModel
 
         return $user;
     }
+
+    /**
+    * is the user active?
+    *
+    * @return bool
+    */
+    public function isActive() : bool
+    {
+        return (bool) $this->user_active;
+    }
+
+    /**
+     * Determine if a user is banned.
+     *
+     * @return bool
+     */
+    public function isBanned() : bool
+    {
+        return !$this->isActive() && $this->banned === 'Y';
+    }
 }

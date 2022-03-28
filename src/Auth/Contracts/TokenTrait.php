@@ -80,7 +80,7 @@ trait TokenTrait
      *
      * @deprecated 0.2
      */
-    public static function getValidationData(Token $token) : bool
+    public function getValidationData(Token $token) : bool
     {
         return self::validateJwtToken($token);
     }

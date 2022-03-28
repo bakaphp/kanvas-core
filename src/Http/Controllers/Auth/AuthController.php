@@ -27,9 +27,27 @@ class AuthController extends BaseController
      * @return JsonResponse
      * @todo Need to move this pagination somewhere else.
      */
-    public function login(): JsonResponse
+    public function login(Request $request): JsonResponse
     {
-        return response()->json('Login');
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => [
+                    'required'
+                ],
+                'password' => [
+                    'required',
+                ],
+            ]
+        )->validate();
+
+        //Should we use a dto here?
+        $email = $request['email'];
+        $password = $request['password'];
+
+        $this->user = $this->loginUsers($request, $email, $password);
+
+        return response()->json($this->generateToken($request));
     }
 
     /**
@@ -39,22 +57,21 @@ class AuthController extends BaseController
      */
     public function register(Request $request): JsonResponse
     {
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'password' => [
-        //             'required',
-        //             'confirmed',
-        //             Password::min(8)
-        //         ],
-        //     ]
-        // )->validate();
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'password' => [
+                    'required',
+                    'confirmed',
+                    Password::min(8)
+                ],
+            ]
+        )->validate();
 
-        // $data = RegisterPostData::fromRequest($request);
-        // $user = new RegisterUsersAction($data);
+        $data = RegisterPostData::fromRequest($request);
+        $user = new RegisterUsersAction($data);
 
-        // $registeredUser = $user->execute();
-        $registeredUser = Users::first();
+        $registeredUser = $user->execute();
 
         $this->user = $registeredUser;
 

@@ -14,3 +14,4 @@ Route::get('/apps-settings', [\Kanvas\Http\Controllers\Apps\SettingsController::
 Route::get('/apps-roles', [\Kanvas\Http\Controllers\Apps\RolesController::class, 'index']);
 
 Route::post('/register', [\Kanvas\Http\Controllers\Auth\AuthController::class, 'register']);
+Route::post('/login', [\Kanvas\Http\Controllers\Auth\AuthController::class, 'login']);

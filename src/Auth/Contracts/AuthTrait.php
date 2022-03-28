@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Kanvas\Auth\Contracts;
 
-use Canvas\Auth\Factory;
+use Kanvas\Auth\Factory;
 use Kanvas\Auth\TokenResponse;
 use Kanvas\Users\Users\Models\Users;
 use Kanvas\Auth\Contracts\TokenTrait;
+use Illuminate\Http\Request;
 
 trait AuthTrait
 {
@@ -16,17 +17,18 @@ trait AuthTrait
      *
      * @param string
      *
-     * @return array
+     * @return Users
      */
-    protected function loginUsers(string $email, string $password) : array
+    protected function loginUsers(Request $request, string $email, string $password) : Users
     {
-        $userIp = $this->getClientIp();
-
+        $userIp = $request->ip();
         $remember = 1;
         $admin = 0;
-        $auth = Factory::create($this->app->ecosystemAuth());
+
+        $auth = Factory::create(true);
+
         $userData = $auth::login($email, $password, $remember, $admin, $userIp);
 
-        return $this->authResponse($userData);
+        return $userData;
     }
 }

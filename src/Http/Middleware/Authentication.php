@@ -41,6 +41,7 @@ class Authentication
      * @throws UnauthorizedException
      *
      * @return void
+     * @todo Set userdata on DI ??
      */
     protected function sessionUser(Token $token, Request $request)
     {
@@ -63,15 +64,18 @@ class Authentication
             throw new Exception('User not found');
         }
 
-
         /**
          * This is where we will validate the token that was sent to us
          * using Bearer Authentication.
          *
          * Find the user attached to this token
          */
-        if (!Users::validateJwtToken($token)) {
+        if (!$this->validateJwtToken($token)) {
             throw new Exception('Invalid Token');
         }
+
+        $this->app->singleton(Users::class, function ($user) {
+            return $user;
+        });
     }
 }

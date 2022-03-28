@@ -7,6 +7,7 @@ namespace Kanvas\Users\Users\DataTransferObject;
 
 use Spatie\DataTransferObject\DataTransferObject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * AppsData class
@@ -47,7 +48,7 @@ class RegisterPostData extends DataTransferObject
             lastname: $request->get('lastname'),
             displayname: $request->get('displayname'),
             email: $request->get('email'),
-            password: $request->get('password'),
+            password: Hash::make($request->get('password')),
             default_company: $request->get('default_company')
         );
     }

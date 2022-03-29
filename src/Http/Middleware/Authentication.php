@@ -3,7 +3,7 @@ namespace Kanvas\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Kanvas\Contracts\TokenTrait;
+use Kanvas\Traits\TokenTrait;
 use Kanvas\Sessions\Sessions\Models\Sessions;
 use Kanvas\Users\Users\Models\Users;
 use Lcobucci\JWT\Token;
@@ -24,7 +24,10 @@ class Authentication
             throw new Exception('Missing Token');
         }
 
-        $this->sessionUser($token, $request);
+        $user = $this->sessionUser($token, $request);
+
+        print_r($user);
+        die();
 
         // $request->headers->set('Accept', 'application/json');
         return $next($request);
@@ -48,11 +51,6 @@ class Authentication
         $session = new Sessions();
         $userData = new Users();
 
-        //all is empty and is dev, ok take use the first user
-        if (empty($token->claims()->get('sessionId')) && strtolower(config('kanvas.app.env')) == "development") {
-            return $userData->find(1);
-        }
-
         if (!empty($token->claims()->get('sessionId'))) {
             if (!$user = $userData->getByEmail($token->claims()->get('email'))) {
                 throw new Exception('User not found');
@@ -74,7 +72,7 @@ class Authentication
             throw new Exception('Invalid Token');
         }
 
-        $this->app->singleton(Users::class, function ($user) {
+        $this->app->bind(Users::class, function ($user) {
             return $user;
         });
     }

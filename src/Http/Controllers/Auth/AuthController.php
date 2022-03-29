@@ -13,8 +13,8 @@ use Kanvas\Users\Users\Actions\RegisterUsersAction;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Kanvas\Users\Users\Models\Users;
-use Kanvas\Auth\Contracts\AuthTrait;
-use Kanvas\Auth\Contracts\TokenTrait;
+use Kanvas\Auth\Traits\AuthTrait;
+use Kanvas\Auth\Traits\TokenTrait;
 
 class AuthController extends BaseController
 {

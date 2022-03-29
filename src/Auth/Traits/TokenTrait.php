@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Auth\Contracts;
+namespace Kanvas\Auth\Traits;
 
 use Kanvas\Auth\Jwt;
 use DateTimeImmutable;

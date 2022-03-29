@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Contracts;
+namespace Kanvas\Traits;
 
 use Kanvas\Auth\Jwt;
 use Lcobucci\JWT\Token;

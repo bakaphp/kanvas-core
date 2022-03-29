@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Auth\Contracts;
+namespace Kanvas\Auth\Traits;
 
 use Kanvas\Auth\Factory;
-use Kanvas\Auth\TokenResponse;
 use Kanvas\Users\Users\Models\Users;
-use Kanvas\Auth\Contracts\TokenTrait;
 use Illuminate\Http\Request;
 
 trait AuthTrait

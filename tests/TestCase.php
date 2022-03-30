@@ -1,10 +1,22 @@
 <?php
 
-namespace Tests;
+namespace JohnDoe\BlogPackage\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-
-abstract class TestCase extends BaseTestCase
+class TestCase extends \Orchestra\Testbench\TestCase
 {
-    use CreatesApplication;
+    public function setUp(): void
+    {
+        parent::setUp();
+        // additional setup
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        // perform environment setup
+    }
 }

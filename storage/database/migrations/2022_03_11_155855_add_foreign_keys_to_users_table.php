@@ -15,12 +15,10 @@ class AddForeignKeysToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreign(['roles_id'], 'users_ibfk_1')->references(['id'])->on('roles')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['default_company'], 'users_ibfk_2')->references(['id'])->on('companies')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['default_company_branch'], 'users_ibfk_3')->references(['id'])->on('companies_branches')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['city_id'], 'users_ibfk_4')->references(['id'])->on('countries_cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['state_id'], 'users_ibfk_5')->references(['id'])->on('countries_states')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['country_id'], 'users_ibfk_6')->references(['id'])->on('countries')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['system_modules_id'], 'users_ibfk_7')->references(['id'])->on('system_modules')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            // $table->foreign(['city_id'], 'users_ibfk_2')->references(['id'])->on('countries_cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            // $table->foreign(['state_id'], 'users_ibfk_3')->references(['id'])->on('countries_states')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            // $table->foreign(['country_id'], 'users_ibfk_4')->references(['id'])->on('countries')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['system_modules_id'], 'users_ibfk_2')->references(['id'])->on('system_modules')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -33,12 +31,10 @@ class AddForeignKeysToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('users_ibfk_1');
+            // $table->dropForeign('users_ibfk_4');
+            // $table->dropForeign('users_ibfk_5');
+            // $table->dropForeign('users_ibfk_6');
             $table->dropForeign('users_ibfk_2');
-            $table->dropForeign('users_ibfk_3');
-            $table->dropForeign('users_ibfk_4');
-            $table->dropForeign('users_ibfk_5');
-            $table->dropForeign('users_ibfk_6');
-            $table->dropForeign('users_ibfk_7');
         });
     }
 }

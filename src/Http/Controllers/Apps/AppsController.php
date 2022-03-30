@@ -14,9 +14,24 @@ use Illuminate\Http\JsonResponse;
 use Kanvas\Http\Controllers\BaseController;
 use Kanvas\Apps\Apps\Actions\CreateAppsAction;
 use Kanvas\Apps\Apps\Actions\UpdateAppsAction;
+use Kanvas\Enums\HttpDefaults;
+use Kanvas\Users\Users\Models\Users;
 
 class AppsController extends BaseController
 {
+    protected Users $user;
+
+    /**
+    * Create a new controller instance.
+    *
+    * @param  UserRepository  $users
+    * @return void
+    */
+    public function __construct(Users $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * Fetch all apps
      *
@@ -25,14 +40,16 @@ class AppsController extends BaseController
      */
     public function index(): JsonResponse
     {
-        $response = Apps::paginate(25);
+        $limit = HttpDefaults::RECORDS_PER_PAGE;
+        $response = Apps::paginate($limit->getValue());
         $collection = CollectionResponseData::fromModelCollection($response->getCollection());
 
         $response = [
-            "data" => $collection,
+            "data" => $collection->data,
             "current_page" => $response->currentPage(),
             "total" => $response->total()
         ];
+
         return response()->json($response);
     }
 

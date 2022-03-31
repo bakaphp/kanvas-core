@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
 use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
 use Kanvas\Apps\Apps\Actions\CreateAppsAction;
 use Kanvas\Apps\Apps\Models\Apps;
+use Tests\TestCase;
 
 final class CreateAppsActionTest extends TestCase
 {
@@ -31,12 +31,9 @@ final class CreateAppsActionTest extends TestCase
 
         $app = new CreateAppsAction($dtoData);
 
-        $this->assertTrue($app->execute() instanceof Apps);
-
-
         $this->assertInstanceOf(
-            AppsPutData::class,
-            AppsPutData::fromArray($data)
+            Apps::class,
+            $app->execute()
         );
     }
 }

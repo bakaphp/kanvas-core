@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
 
 final class AppsPostDataTest extends TestCase

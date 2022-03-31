@@ -1,22 +1,36 @@
 <?php
 
-namespace JohnDoe\BlogPackage\Tests;
+namespace Tests;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+use \Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+
+class TestCase extends OrchestraTestCase
 {
+    protected $loadEnvironmentVariables = true;
+
     public function setUp(): void
     {
         parent::setUp();
-        // additional setup
     }
 
     protected function getPackageProviders($app)
     {
-        return [];
+        return [
+        ];
     }
 
     protected function getEnvironmentSetUp($app)
     {
-        // perform environment setup
+    }
+
+    /**
+    * Define database migrations.
+    *
+    * @return void
+    */
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }

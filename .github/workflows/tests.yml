@@ -49,14 +49,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-suggest
 
-      # - name: Run Kanvas Migrations
-      #   if: success()
-      #   run: php artisan migrate
-
-      # - name: Run Pest Unit Tests Group
-      #   if: success()
-      #   run: vendor/bin/pest --group=unit
-
-      # - name: Run Pest Feature Tests Group
-      #   if: success()
-      #   run: vendor/bin/pest --group=feature
+      - name: Run Tests
+        if: success()
+        run: composer test

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use \Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 
 class TestCase extends OrchestraTestCase

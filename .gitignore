@@ -4,3 +4,4 @@
 .phpunit.result.cache
 /tests/storage/logs
 /storage/database/migrations/.DS_Store
+phpunit.xml

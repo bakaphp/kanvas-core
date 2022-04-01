@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Apps Routes
+ */
 Route::group(['controller'=> '\Kanvas\Http\Controllers\Apps\AppsController'], function () {
-    Route::get('/apps', 'index')->middleware('auth');
+    Route::get('/apps', 'index');
     Route::get('/apps/{id}', 'show');
     Route::post('/apps', 'create');
     Route::put('/apps/{id}', 'update');

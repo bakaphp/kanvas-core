@@ -10,6 +10,10 @@ return [
             'logQueries' => getenv('DEBUG_QUERY'),
             'logRequest' => getenv('DEBUG_REQUEST')
         ],
+        'routes' => [
+            'prefix' => 'v1',
+            'middleware' => ['api']
+        ]
     ],
     'app' => [
         'id' => getenv('GEWAER_APP_ID', 'ac53fedf-f873-4b96-973a-2368690652b5'),
@@ -100,12 +104,6 @@ return [
             ],
         ],
     ],
-    'beanstalk' => [
-        //@todo remove this we are not using it anymore
-        'host' => getenv('BEANSTALK_HOST'),
-        'port' => getenv('BEANSTALK_PORT'),
-        'prefix' => getenv('BEANSTALK_PREFIX'),
-    ],
     'elasticSearch' => [
         'hosts' => [getenv('ELASTIC_HOST')], //change to pass array
     ],
@@ -128,11 +126,6 @@ return [
         'secretKey' => getenv('STRIPE_SECRET'),
         'secret' => getenv('STRIPE_SECRET'),
         'public' => getenv('STRIPE_PUBLIC'),
-    ],
-    'throttle' => [
-        'bucketSize' => getenv('THROTTLE_BUCKET_SIZE'),
-        'refillTime' => getenv('THROTTLE_REFILL_TIME'),
-        'refillAmount' => getenv('THROTTLE_REFILL_AMOUNT'),
     ],
     'pushNotifications' => [
         'appId' => getenv('CANVAS_ONESIGNAL_APP_ID'),

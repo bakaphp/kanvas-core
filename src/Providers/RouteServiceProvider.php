@@ -27,13 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
-
-        $this->routes(function () {
-            Route::prefix('v1')
-                ->group(base_path('routes/api.php'));
-            // Route::prefix('v1')
-            //     ->group(env("KANVAS_CORE_ROUTES") . "/routes/api.php");
-        });
+        $this->registerRoutes();
     }
 
 
@@ -48,5 +42,32 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    /**
+     * Register Routes function
+     *
+     * @return void
+     */
+    protected function registerRoutes(): void
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__.'/../../routes/api.php');
+        });
+    }
+
+    /**
+     * Routes Configuration
+     *
+     * @return array
+     */
+    protected function routeConfiguration(): array
+    {
+        return
+        [
+            // 'prefix' => config('application.routes.prefix'),
+            // 'middleware' => config('application.routes.middleware'),
+            'prefix' => 'v1',
+        ];
     }
 }

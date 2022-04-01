@@ -1,12 +1,25 @@
 <?php
+declare(strict_types=1);
 
-use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
 use Kanvas\Apps\Apps\Actions\SetupAppsAction;
 use Kanvas\Apps\Apps\Models\Apps;
+use Tests\TestCase;
 
-it('Create a default setup for an App Action', function () {
-    $app = Apps::factory()->create();
-    $setup = new SetupAppsAction($app);
+final class SetupAppsActionTest extends TestCase
+{
+    /**
+     * Test Create Apps Action
+     *
+     * @return void
+     */
+    public function testCreateAppsAction(): void
+    {
+        $app = Apps::factory()->create();
+        $setup = new SetupAppsAction($app);
 
-    $this->assertTrue($setup->execute() instanceof Apps);
-})->group('feature', 'apps');
+        $this->assertInstanceOf(
+            Apps::class,
+            $setup->execute()
+        );
+    }
+}

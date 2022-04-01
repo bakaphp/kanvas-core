@@ -2,9 +2,35 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 
-abstract class TestCase extends BaseTestCase
+class TestCase extends OrchestraTestCase
 {
-    use CreatesApplication;
+    protected $loadEnvironmentVariables = true;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+        ];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+    }
+
+    /**
+    * Define database migrations.
+    *
+    * @return void
+    */
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
 }

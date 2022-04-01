@@ -1,19 +1,17 @@
 <?php
 declare(strict_types=1);
 
-use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
-use Kanvas\Apps\Apps\Actions\CreateAppsAction;
-use Kanvas\Apps\Apps\Models\Apps;
 use Tests\TestCase;
+use Kanvas\Apps\Apps\DataTransferObject\AppsPutData;
 
-final class CreateAppsActionTest extends TestCase
+final class AppsPutDataTest extends TestCase
 {
     /**
-     * Test Create Apps Action
+     * Test Create AppsPutData Dto
      *
      * @return void
      */
-    public function testCreateAppsAction(): void
+    public function testCreateAppsPutDataDto(): void
     {
         $data = [
             "url" => "example.com",
@@ -26,14 +24,10 @@ final class CreateAppsActionTest extends TestCase
             "description" => "Kanvas Application",
             "domain" => "example.com",
         ];
-        //Create new AppsPostData
-        $dtoData = AppsPostData::fromArray($data);
-
-        $app = new CreateAppsAction($dtoData);
 
         $this->assertInstanceOf(
-            Apps::class,
-            $app->execute()
+            AppsPutData::class,
+            AppsPutData::fromArray($data)
         );
     }
 }

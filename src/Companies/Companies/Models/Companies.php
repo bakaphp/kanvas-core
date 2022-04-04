@@ -10,6 +10,7 @@ use Kanvas\Users\Users\Models\Users;
 use Kanvas\SystemModules\Models\SystemModules;
 use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Companies\Branches\Models\CompaniesBranches;
+use Kanvas\Companies\Groups\Models\CompaniesGroups;
 
 /**
  * Companies Model
@@ -40,6 +41,16 @@ class Companies extends BaseModel
     protected $table = 'companies';
 
     /**
+    * Create a new factory instance for the model.
+    *
+    * @return \Illuminate\Database\Eloquent\Factories\Factory
+    */
+    protected static function newFactory()
+    {
+        return CompaniesFactory::new();
+    }
+
+    /**
      * CompaniesBranches relationship
      *
      * @return hasMany
@@ -49,14 +60,15 @@ class Companies extends BaseModel
         return $this->hasMany(CompaniesBranches::class, 'companies_id');
     }
 
+
     /**
-    * Create a new factory instance for the model.
-    *
-    * @return \Illuminate\Database\Eloquent\Factories\Factory
-    */
-    protected static function newFactory()
+     * CompaniesGroups relationship
+     *
+     * @return hasMany
+     */
+    public function groups()
     {
-        return CompaniesFactory::new();
+        return $this->belongsToMany(CompaniesGroups::class, 'companies_associations');
     }
 
     /**

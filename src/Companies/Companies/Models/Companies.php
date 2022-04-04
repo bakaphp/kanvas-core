@@ -9,6 +9,7 @@ use Kanvas\Companies\Companies\Factories\CompaniesFactory;
 use Kanvas\Users\Users\Models\Users;
 use Kanvas\SystemModules\Models\SystemModules;
 use Kanvas\Apps\Apps\Models\Apps;
+use Kanvas\Companies\Branches\Models\CompaniesBranches;
 
 /**
  * Companies Model
@@ -37,6 +38,16 @@ class Companies extends BaseModel
      * @var string
      */
     protected $table = 'companies';
+
+    /**
+     * CompaniesBranches relationship
+     *
+     * @return hasMany
+     */
+    public function branches()
+    {
+        return $this->hasMany(CompaniesBranches::class, 'companies_id');
+    }
 
     /**
     * Create a new factory instance for the model.

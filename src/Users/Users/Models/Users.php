@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Kanvas\Users\Users\Models;
 
 use Kanvas\Models\BaseModel;
+use Kanvas\Companies\Companies\Models\Companies;
+use Kanvas\Companies\Branches\Models\CompaniesBranches;
 use Exception;
 
 /**
@@ -64,6 +66,26 @@ class Users extends BaseModel
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * Companies relationship
+     *
+     * @return hasMany
+     */
+    public function companies()
+    {
+        return $this->hasMany(Companies::class, 'users_id');
+    }
+
+    /**
+     * CompaniesBranches relationship
+     *
+     * @return hasMany
+     */
+    public function branches()
+    {
+        return $this->hasMany(CompaniesBranches::class, 'users_id');
+    }
 
     /**
      * Get User's email

@@ -33,7 +33,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Kanvas\\": "src"
+            "Kanvas\\": "src",
+            "Kanvas\\Database\\": "database"
         }
     },
     "autoload-dev": {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Locations\Cities\Models;
+namespace Kanvas\Locations\States\Models;
 
 use Kanvas\Models\BaseModel;
 use Kanvas\Locations\Countries\Models\Countries;

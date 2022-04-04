@@ -23,6 +23,8 @@ class CreateSessionsTable extends Migration
             $table->string('page', 45);
             $table->enum('logged_in', ['0', '1'])->default('0')->index('logged_in');
             $table->enum('is_admin', ['0', '1'])->nullable()->default('0')->index('is_admin');
+            $table->dateTime('created_at')->index('created_at');
+            $table->dateTime('updated_at')->nullable()->index('updated_at');
         });
     }
 

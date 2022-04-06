@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Locations\Countries\DataTransferObject;
+namespace Kanvas\Locations\States\DataTransferObject;
 
 use Spatie\DataTransferObject\DataTransferObject;
 use Illuminate\Database\Eloquent\Collection;
-use Kanvas\Locations\Countries\Models\Countries;
+use Kanvas\Locations\States\Models\States;
 
 /**
  * ResponseData class
@@ -17,21 +17,21 @@ class SingleResponseData extends DataTransferObject
      * Construct function
      *
      * @param int $id
+     * @param int $countries_id
      * @param string $name
      * @param string $code
-     * @param string $flag
      * @param string $created_at
      * @param string $updated_at
      * @param int $is_deleted
      */
     public function __construct(
         public int $id,
+        public int $countries_id,
         public string $name,
         public string $code,
-        public ?string $flag,
         public string $created_at,
         public ?string $updated_at,
-        public int $is_deleted
+        public int $is_deleted,
     ) {
     }
 
@@ -42,16 +42,16 @@ class SingleResponseData extends DataTransferObject
      *
      * @return self
      */
-    public static function fromModel(Countries $country): self
+    public static function fromModel(States $state): self
     {
         return new self(
-            id: $country->id,
-            name: $country->name,
-            code: $country->code,
-            flag: $country->flag,
-            created_at: $country->created_at->format('Y-m-d H:i:s'),
-            updated_at: $country->updated_at ? $state->updated_at->format('Y-m-d H:i:s') : null,
-            is_deleted: $country->is_deleted
+            id: $state->id,
+            countries_id: $state->countries_id,
+            name: $state->name,
+            code: $state->code,
+            created_at: $state->created_at->format('Y-m-d H:i:s'),
+            updated_at: $state->updated_at ? $state->updated_at->format('Y-m-d H:i:s') : null,
+            is_deleted: $state->is_deleted
         );
     }
 }

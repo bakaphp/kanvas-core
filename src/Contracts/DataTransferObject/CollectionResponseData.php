@@ -12,7 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 /**
  * ResponseData class
  */
-class CollectionResponseData extends DataTransferObject
+abstract class CollectionResponseData extends DataTransferObject
 {
     /**
      * Construct function

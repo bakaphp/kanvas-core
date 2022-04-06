@@ -19,6 +19,9 @@ use Kanvas\Users\Users\Models\Users;
 
 class AppsController extends BaseController
 {
+    /**
+     * DI User
+     */
     protected Users $user;
 
     /**
@@ -41,16 +44,10 @@ class AppsController extends BaseController
     public function index(): JsonResponse
     {
         $limit = HttpDefaults::RECORDS_PER_PAGE;
-        $response = Apps::paginate($limit->getValue());
-        $collection = CollectionResponseData::fromModelCollection($response->getCollection());
+        $results = Apps::paginate($limit->getValue());
+        $collection = CollectionResponseData::fromModelCollection($results);
 
-        $response = [
-            "data" => $collection->data,
-            "current_page" => $response->currentPage(),
-            "total" => $response->total()
-        ];
-
-        return response()->json($response);
+        return response()->json($collection->formatResponse());
     }
 
     /**

@@ -12,6 +12,7 @@ use Kanvas\Apps\Apps\Factories\AppsFactory;
 /**
  * Apps Model
  *
+ * @property int $id
  * @property string $key
  * @property string $url
  * @property string $description
@@ -22,6 +23,9 @@ use Kanvas\Apps\Apps\Factories\AppsFactory;
  * @property int $payments_active
  * @property int $is_public
  * @property int $domain_based
+ * @property string $created_at
+ * @property string $updated_at
+ * @property int $is_deleted
  */
 class Apps extends BaseModel
 {

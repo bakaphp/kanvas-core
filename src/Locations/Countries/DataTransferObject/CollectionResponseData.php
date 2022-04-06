@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Apps\Apps\DataTransferObject;
+namespace Kanvas\Locations\Countries\DataTransferObject;
 
 use Kanvas\Contracts\DataTransferObject\CollectionResponseData as BaseCollectionResponseData;
 use Illuminate\Database\Eloquent\Collection;
-use Kanvas\Apps\Apps\DataTransferObject\SingleResponseData;
+use Kanvas\Locations\Countries\DataTransferObject\SingleResponseData;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**

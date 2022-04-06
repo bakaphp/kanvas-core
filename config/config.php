@@ -12,7 +12,7 @@ return [
         ],
         'routes' => [
             'prefix' => 'v1',
-            'middleware' => ['api', 'auth']
+            'middleware' => ['api']
         ]
     ],
     'app' => [

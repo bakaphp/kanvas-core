@@ -29,7 +29,7 @@ class AppsFactory extends Factory
             "url" => $this->faker->url(),
             "key" => Str::random(10),
             "name" => $this->faker->name(),
-            "description" => $this->faker->sentence(3),
+            "description" => $this->faker->sentence(2),
             "is_actived" => 1,
             "ecosystem_auth" => 1,
             "payments_active" => 1,

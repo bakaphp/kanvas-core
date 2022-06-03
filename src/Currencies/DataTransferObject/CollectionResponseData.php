@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Locations\Countries\DataTransferObject;
+namespace Kanvas\Currencies\DataTransferObject;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Kanvas\Contracts\DataTransferObject\CollectionResponseData as BaseCollectionResponseData;

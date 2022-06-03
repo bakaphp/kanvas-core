@@ -11,7 +11,7 @@ class CurrenciesTest extends TestCase
      *
      * @return void
      */
-    public function getAllCurrencies()
+    public function testGetAllCurrencies()
     {
         $response = $this->get('/currencies');
 

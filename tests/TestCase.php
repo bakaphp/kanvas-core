@@ -15,6 +15,8 @@ class TestCase extends OrchestraTestCase
     public function setUp() : void
     {
         parent::setUp();
+
+        require_once __DIR__ . '/../routes/api.php';
     }
 
     protected function getPackageProviders($app)

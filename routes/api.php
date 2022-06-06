@@ -7,7 +7,7 @@ Route::post('/login', [\Kanvas\Http\Controllers\Auth\AuthController::class, 'log
 Route::get('/countries', [\Kanvas\Http\Controllers\Locations\CountriesController::class, 'index']);
 Route::get('/countries/{id}', [\Kanvas\Http\Controllers\Locations\CountriesController::class, 'show']);
 Route::get('/countries/{countriesId}/states', [\Kanvas\Http\Controllers\Locations\StatesController::class, 'index']);
-Route::get('/countries/{countriesId}/states/{statesId}/regions', [\Kanvas\Http\Controllers\Locations\CitiesController::class, 'index']);
+// Route::get('/countries/{countriesId}/states/{statesId}/regions', [\Kanvas\Http\Controllers\Locations\CitiesController::class, 'index']);
 Route::get('/timezones', [\Kanvas\Http\Controllers\Locations\TimezonesController::class, 'index']);
 Route::get('/currencies', [\Kanvas\Http\Controllers\Currencies\CurrenciesController::class, 'index']);
 Route::get('/currencies/{id}', [\Kanvas\Http\Controllers\Currencies\CurrenciesController::class, 'show']);

@@ -18,6 +18,8 @@ class CreateSessionKeysTable extends Migration
             $table->integer('users_id')->index('user_id');
             $table->string('last_ip', 39)->nullable();
             $table->integer('last_login')->index('last_login');
+            $table->dateTime('created_at')->index('created_at');
+            $table->dateTime('updated_at')->nullable()->index('updated_at');
 
             $table->primary(['sessions_id', 'users_id']);
         });

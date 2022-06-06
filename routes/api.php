@@ -2,19 +2,31 @@
 
 use Illuminate\Support\Facades\Route;
 
-/**
- * Apps Routes
- */
-Route::group(['controller'=> '\Kanvas\Http\Controllers\Apps\AppsController'], function () {
-    Route::get('/apps', 'index');
-    Route::get('/apps/{id}', 'show');
-    Route::post('/apps', 'create');
-    Route::put('/apps/{id}', 'update');
-    Route::delete('/apps/{id}', 'destroy');
-});
-
-Route::get('/apps-settings', [\Kanvas\Http\Controllers\Apps\SettingsController::class, 'index']);
-Route::get('/apps-roles', [\Kanvas\Http\Controllers\Apps\RolesController::class, 'index']);
-
 Route::post('/register', [\Kanvas\Http\Controllers\Auth\AuthController::class, 'register']);
 Route::post('/login', [\Kanvas\Http\Controllers\Auth\AuthController::class, 'login']);
+Route::get('/countries', [\Kanvas\Http\Controllers\Locations\CountriesController::class, 'index']);
+Route::get('/countries/{id}', [\Kanvas\Http\Controllers\Locations\CountriesController::class, 'show']);
+Route::get('/countries/{countriesId}/states', [\Kanvas\Http\Controllers\Locations\StatesController::class, 'index']);
+// Route::get('/countries/{countriesId}/states/{statesId}/regions', [\Kanvas\Http\Controllers\Locations\CitiesController::class, 'index']);
+Route::get('/timezones', [\Kanvas\Http\Controllers\Locations\TimezonesController::class, 'index']);
+Route::get('/currencies', [\Kanvas\Http\Controllers\Currencies\CurrenciesController::class, 'index']);
+Route::get('/currencies/{id}', [\Kanvas\Http\Controllers\Currencies\CurrenciesController::class, 'show']);
+
+
+
+/**
+ * Private Routes.
+ */
+Route::middleware(['auth'])->group(function () {
+
+    /**
+     * Apps Routes.
+     */
+    Route::group(['controller' => '\Kanvas\Http\Controllers\Apps\AppsController'], function () {
+        Route::get('/apps', 'index');
+        Route::get('/apps/{id}', 'show');
+        Route::post('/apps', 'create');
+        Route::put('/apps/{id}', 'update');
+        Route::delete('/apps/{id}', 'destroy');
+    });
+});

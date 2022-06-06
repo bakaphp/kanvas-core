@@ -1,5 +1,7 @@
 <?php
 
+namespace Kanvas\Database\Seeders;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Kanvas\Apps\Models\Apps;

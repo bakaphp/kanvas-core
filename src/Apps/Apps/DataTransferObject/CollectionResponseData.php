@@ -4,45 +4,38 @@ declare(strict_types=1);
 
 namespace Kanvas\Apps\Apps\DataTransferObject;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Kanvas\Contracts\DataTransferObject\CollectionResponseData as BaseCollectionResponseData;
 use Illuminate\Database\Eloquent\Collection;
 use Kanvas\Apps\Apps\DataTransferObject\SingleResponseData;
-use Kanvas\Apps\Apps\Models\Apps;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * ResponseData class
  */
-class CollectionResponseData extends DataTransferObject
+class CollectionResponseData extends BaseCollectionResponseData
 {
-    /**
-     * Construct function
-     *
-     * @param array $AppsResponseData
-     */
-    public function __construct(
-        public array $data,
-    ) {
-    }
-
     /**
      * Create new instance of DTO from request
      *
-     * @param App $app
+     * @param LengthAwarePaginator $paginatedCollection
      *
      * @return self
      *
      * @todo This implementation could be improved
      */
-    public static function fromModelCollection(Collection $collection): self
+    public static function fromModelCollection(LengthAwarePaginator $paginatedCollection): self
     {
-        $singleResponseDataArray = [];
-        //Transform eloquent collection to single response data dto
-        foreach ($collection as $record) {
+        $collectionArray = [];
+
+        foreach ($paginatedCollection->getCollection() as $record) {
             $dto = SingleResponseData::fromModel($record);
-            $singleResponseDataArray[] = $dto;
+            $collectionArray[] = $dto;
         }
 
-
-        return new self($singleResponseDataArray);
+        return new self(
+            data: $collectionArray,
+            currentPage: $paginatedCollection->currentPage(),
+            total: $paginatedCollection->total()
+        );
     }
 }

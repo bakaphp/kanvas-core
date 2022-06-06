@@ -9,6 +9,8 @@ use Kanvas\Companies\Companies\Factories\CompaniesFactory;
 use Kanvas\Users\Users\Models\Users;
 use Kanvas\SystemModules\Models\SystemModules;
 use Kanvas\Apps\Apps\Models\Apps;
+use Kanvas\Companies\Branches\Models\CompaniesBranches;
+use Kanvas\Companies\Groups\Models\CompaniesGroups;
 
 /**
  * Companies Model
@@ -46,6 +48,27 @@ class Companies extends BaseModel
     protected static function newFactory()
     {
         return CompaniesFactory::new();
+    }
+
+    /**
+     * CompaniesBranches relationship
+     *
+     * @return hasMany
+     */
+    public function branches()
+    {
+        return $this->hasMany(CompaniesBranches::class, 'companies_id');
+    }
+
+
+    /**
+     * CompaniesGroups relationship
+     *
+     * @return hasMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(CompaniesGroups::class, 'companies_associations');
     }
 
     /**

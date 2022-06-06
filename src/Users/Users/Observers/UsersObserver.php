@@ -21,16 +21,4 @@ class UsersObserver
         $user->roles_id = Roles::first()->id;
         $user->system_modules_id = SystemModules::first()->id;
     }
-
-    // /**
-    //  * Handle the Apps "saving" event.
-    //  *
-    //  * @param  Apps $app
-    //  * @return void
-    //  */
-    // public function saved(Users $user): void
-    // {
-    //     $setup = new SetupAppsAction($app);
-    //     $setup->execute();
-    // }
 }

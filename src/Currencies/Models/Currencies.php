@@ -33,4 +33,14 @@ class Currencies extends BaseModel
     {
         return CurrenciesFactory::new();
     }
+
+    /**
+     * Companies relationship
+     *
+     * @return hasMany
+     */
+    public function companies()
+    {
+        return $this->hasMany(Companies::class, 'currency_id');
+    }
 }

@@ -1,13 +1,15 @@
 <?php
+
 namespace Kanvas\Http\Middleware;
 
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
-use Kanvas\Traits\TokenTrait;
+use Illuminate\Support\Facades\App;
 use Kanvas\Sessions\Sessions\Models\Sessions;
+use Kanvas\Traits\TokenTrait;
 use Kanvas\Users\Users\Models\Users;
 use Lcobucci\JWT\Token;
-use Exception;
 
 class Authentication
 {
@@ -26,10 +28,12 @@ class Authentication
 
         $user = $this->sessionUser($token, $request);
 
-        print_r($user);
-        die();
+        App::bind(Users::class, function () use ($user) {
+            return $user;
+        });
 
-        // $request->headers->set('Accept', 'application/json');
+        App::alias(Users::class, 'userData');
+
         return $next($request);
     }
 
@@ -44,6 +48,7 @@ class Authentication
      * @throws UnauthorizedException
      *
      * @return void
+     *
      * @todo Set userdata on DI ??
      */
     protected function sessionUser(Token $token, Request $request)
@@ -71,9 +76,5 @@ class Authentication
         if (!$this->validateJwtToken($token)) {
             throw new Exception('Invalid Token');
         }
-
-        $this->app->bind(Users::class, function ($user) {
-            return $user;
-        });
     }
 }

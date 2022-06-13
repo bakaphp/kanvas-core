@@ -11,8 +11,8 @@ class ConfigServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register() : void
     {
-        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'kanvas');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'kanvas');
     }
 }

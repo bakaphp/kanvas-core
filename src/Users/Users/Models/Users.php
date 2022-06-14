@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Kanvas\Users\Users\Models;
 
-use Kanvas\Models\BaseModel;
-use Kanvas\Companies\Companies\Models\Companies;
-use Kanvas\Companies\Branches\Models\CompaniesBranches;
 use Exception;
+use Kanvas\Companies\Branches\Models\CompaniesBranches;
+use Kanvas\Companies\Companies\Models\Companies;
+use Kanvas\Models\BaseModel;
+use Kanvas\Traits\HashTableTrait;
+use Kanvas\Traits\UsersAssociatedTrait;
+use Kanvas\Users\UserConfig\Models\UserConfig;
 
 /**
- * Apps Model
+ * Apps Model.
+ *
  * @property string $uuid
  * @property string $email
  * @property string $password
@@ -60,6 +64,9 @@ use Exception;
  */
 class Users extends BaseModel
 {
+    use HashTableTrait;
+    use UsersAssociatedTrait;
+
     /**
      * The table associated with the model.
      *
@@ -68,7 +75,7 @@ class Users extends BaseModel
     protected $table = 'users';
 
     /**
-     * Companies relationship
+     * Companies relationship.
      *
      * @return hasMany
      */
@@ -78,7 +85,7 @@ class Users extends BaseModel
     }
 
     /**
-     * CompaniesBranches relationship
+     * CompaniesBranches relationship.
      *
      * @return hasMany
      */
@@ -88,7 +95,7 @@ class Users extends BaseModel
     }
 
     /**
-     * Get User's email
+     * Get User's email.
      *
      * @return string
      */
@@ -106,8 +113,8 @@ class Users extends BaseModel
     {
         $user = self::where(
             [
-            'email' => $email,
-            'is_deleted' => 0
+                'email' => $email,
+                'is_deleted' => 0
             ]
         )->first();
 
@@ -119,10 +126,10 @@ class Users extends BaseModel
     }
 
     /**
-    * is the user active?
-    *
-    * @return bool
-    */
+     * is the user active?
+     *
+     * @return bool
+     */
     public function isActive() : bool
     {
         return (bool) $this->user_active;
@@ -136,5 +143,27 @@ class Users extends BaseModel
     public function isBanned() : bool
     {
         return !$this->isActive() && $this->banned === 'Y';
+    }
+
+    /**
+     * Set hashtable settings table, userConfig ;).
+     *
+     * @return void
+     */
+    protected function createSettingsModel() : void
+    {
+        $this->settingsModel = new UserConfig();
+    }
+
+    /**
+     * A company owner is the first person that register this company
+     * This only ocurred when signing up the first time, after that all users invites
+     * come with a default_company id attached.
+     *
+     * @return bool
+     */
+    public function isFirstSignup() : bool
+    {
+        return empty($this->default_company);
     }
 }

@@ -29,4 +29,15 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/apps/{id}', 'update');
         Route::delete('/apps/{id}', 'destroy');
     });
+
+    /**
+     * Companies Routes.
+     */
+    Route::group(['controller' => '\Kanvas\Http\Controllers\Companies\CompaniesController'], function () {
+        Route::get('/companies', 'index');
+        Route::get('/companies/{id}', 'show');
+        Route::post('/companies', 'create');
+        Route::put('/companies/{id}', 'update');
+        Route::delete('/companies/{id}', 'destroy');
+    });
 });

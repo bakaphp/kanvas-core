@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Kanvas\Companies\Groups\Models;
 
-use Kanvas\Models\BaseModel;
-use Kanvas\Users\Users\Models\Users;
 use Kanvas\Companies\Associations\Models\Associations;
 use Kanvas\Companies\Companies\Models\Companies;
+use Kanvas\Models\BaseModel;
+use Kanvas\Users\Users\Models\Users;
 
 /**
- * CompaniesGroups Model
+ * CompaniesGroups Model.
  *
  * @property int $apps_id
  * @property int $users_id
@@ -22,6 +22,7 @@ use Kanvas\Companies\Companies\Models\Companies;
  */
 class CompaniesGroups extends BaseModel
 {
+
     /**
      * The table associated with the model.
      *
@@ -30,7 +31,7 @@ class CompaniesGroups extends BaseModel
     protected $table = 'companies_groups';
 
     /**
-     * CompaniesBranches relationship
+     * CompaniesBranches relationship.
      *
      * @return hasMany
      */
@@ -40,7 +41,7 @@ class CompaniesGroups extends BaseModel
     }
 
     /**
-     * Companies relationship
+     * Companies relationship.
      *
      * @return hasMany
      */
@@ -50,11 +51,11 @@ class CompaniesGroups extends BaseModel
     }
 
     /**
-     * Users relationship
+     * Users relationship.
      *
      * @return Users
      */
-    public function user(): Users
+    public function user() : Users
     {
         return $this->belongsTo(Users::class, 'users_id');
     }

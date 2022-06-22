@@ -75,6 +75,16 @@ class Users extends BaseModel
     protected $table = 'users';
 
     /**
+     * Default Company relationship.
+     *
+     * @return hasMany
+     */
+    public function defaultCompany()
+    {
+        return $this->hasOne(Companies::class, 'id', 'default_company');
+    }
+
+    /**
      * Companies relationship.
      *
      * @return hasMany
@@ -165,5 +175,16 @@ class Users extends BaseModel
     public function isFirstSignup() : bool
     {
         return empty($this->default_company);
+    }
+
+    /**
+     * What the current company the users is logged in with
+     * in this current session?
+     *
+     * @return int
+     */
+    public function currentCompanyId() : int
+    {
+        return  (int) $this->get(Companies::cacheKey());
     }
 }

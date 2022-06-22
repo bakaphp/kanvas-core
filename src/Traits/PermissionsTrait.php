@@ -35,7 +35,7 @@ trait PermissionsTrait
             $role = $appRole[1];
         }
 
-        $company = $company !== null ? $company : $this->getDefaultCompany();
+        $company = $company !== null ? $company : $this->defaultCompany();
         $role = Roles::getByName($role, $company);
 
         $app = app(Apps::class);
@@ -69,7 +69,7 @@ trait PermissionsTrait
      */
     public function assignRoleById(int $id, ?Companies $company = null) : bool
     {
-        $company = $company !== null ? $company : $this->getDefaultCompany();
+        $company = $company !== null ? $company : $this->defaultCompany();
         $role = Roles::getById($id, $company);
 
         $userRole = UserRoles::findFirstOrCreate([
@@ -104,7 +104,7 @@ trait PermissionsTrait
      */
     public function removeRole(string $role, ?Companies $company = null) : bool
     {
-        $company = $company !== null ? $company : $this->getDefaultCompany();
+        $company = $company !== null ? $company : $this->defaultCompany();
         $role = Roles::getByAppName($role, $company);
 
         $userRole = UserRoles::findFirst([
@@ -137,7 +137,7 @@ trait PermissionsTrait
      */
     public function hasRole(string $role, ?Companies $company = null) : bool
     {
-        $company = $company !== null ? $company : $this->getDefaultCompany();
+        $company = $company !== null ? $company : $this->defaultCompany();
         $role = Roles::getByAppName($role, $company);
 
         return (bool) UserRoles::count([

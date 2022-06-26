@@ -8,7 +8,8 @@
     ],
     "homepage": "https://github.com/bakaphp/kanvas-core",
     "license": "MIT",
-    "authors": [{
+    "authors": [
+        {
             "name": "Rafael White",
             "email": "rwhite@mctekk.com",
             "role": "Backend Developer"

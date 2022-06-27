@@ -12,6 +12,7 @@ use Kanvas\Companies\Companies\DataTransferObject\CollectionResponseData;
 use Kanvas\Companies\Companies\DataTransferObject\CompaniesPostData;
 use Kanvas\Companies\Companies\DataTransferObject\CompaniesPutData;
 use Kanvas\Companies\Companies\DataTransferObject\SingleResponseData;
+use Kanvas\Companies\Companies\Events\AfterSignupEvent;
 use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Companies\Companies\Repositories\CompaniesRepository;
 use Kanvas\Enums\HttpDefaults;
@@ -60,10 +61,8 @@ class CompaniesController extends BaseController
      */
     public function show(int $id) : JsonResponse
     {
-        $company = Companies::findOrFail($id); // Query should be done before passing to dto ?
-
-        print_r(CompaniesRepository::createBranch($company, 'hello'));
-        die();
+        $company = Companies::findOrFail($id);
+        event(new AfterSignupEvent($company));
         $response = SingleResponseData::fromModel($company);
         return response()->json($response);
     }
@@ -77,7 +76,10 @@ class CompaniesController extends BaseController
     {
         $data = CompaniesPostData::fromRequest($request);
         $company = new CreateCompaniesAction($data);
-        return response()->json($company->execute());
+        $company = $company->execute();
+        CompaniesRepository::createBranch($company);
+        $response = SingleResponseData::fromModel($company);
+        return response()->json($response);
     }
 
     /**

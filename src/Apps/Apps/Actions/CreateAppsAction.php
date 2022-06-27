@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Kanvas\Apps\Apps\Actions;
 
-use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
+use Kanvas\Apps\Apps\Models\Apps;
 
 class CreateAppsAction
 {
     /**
-     * Construct function
+     * Construct function.
      */
     public function __construct(
         protected AppsPostData $data
@@ -18,13 +18,13 @@ class CreateAppsAction
     }
 
     /**
-     * Invoke function
+     * Invoke function.
      *
      * @param AppsPostData $data
      *
      * @return Apps
      */
-    public function execute(): Apps
+    public function execute() : Apps
     {
         $app = new Apps();
         $app->name = $this->data->name;

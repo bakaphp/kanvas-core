@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kanvas\Companies\Companies\DataTransferObject;
 
-use Illuminate\Database\Eloquent\Collection;
+use Kanvas\Companies\Companies\Models\Companies;
 use Spatie\DataTransferObject\DataTransferObject;
 
 /**
@@ -15,73 +15,73 @@ class SingleResponseData extends DataTransferObject
     /**
      * Construct function.
      *
-     * @param int $id
-     * @param string $name
-     * @param string $url
-     * @param string $description
-     * @param string $domain
-     * @param int $is_actived
-     * @param int $ecosystem_auth
-     * @param int $default_apps_plan_id
-     * @param int $payments_active
-     * @param int $is_public
-     * @param int $domain_based
-     * @param string $created_at
-     * @param string $updated_at
-     * @param int $is_deleted
-     * @param Collection $settings
-     * @param Collection $roles
+     * @property int $id
+     * @property int $users_id
+     * @property int $system_modules_id
+     * @property int $currency_id
+     * @property string $uuid
+     * @property string $name
+     * @property string $profile_image
+     * @property string $website
+     * @property string $address
+     * @property string $zipcode
+     * @property string $email
+     * @property string $language
+     * @property string $timezone
+     * @property string $phone
+     * @property int $has_activities
+     * @property string $country_code
      */
     public function __construct(
         public int $id,
-        public string $key,
+        public int $users_id,
+        public ?int $system_modules_id,
+        public ?int $currency_id,
+        public ?string $uuid,
         public string $name,
-        public string $url,
-        public string $description,
-        public string $domain,
-        public int $is_actived,
-        public int $ecosystem_auth,
-        public ?int $default_apps_plan_id,
-        public int $payments_active,
-        public int $is_public,
-        public int $domain_based,
-        public string $created_at,
-        public string $updated_at,
+        public ?string $profile_image,
+        public ?string $website,
+        public ?string $address,
+        public ?string $zipcode,
+        public ?string $email,
+        public ?string $language,
+        public ?string $timezone,
+        public ?string $phone,
+        public ?string $created_at,
+        public ?string $updated_at,
         public int $is_deleted,
-        public ?Collection $settings,
-        public ?Collection $roles
     ) {
     }
 
     /**
      * Create new instance of DTO from request.
      *
-     * @param App $app
+     * @param Companies $company
      *
      * @return self
      */
-    public static function fromModel(Apps $app) : self
+    public static function fromModel(Companies $company) : self
     {
         //Here we could filter the data we need
 
         return new self(
-            id: $app->id,
-            key: $app->key,
-            name: $app->name,
-            url: $app->url,
-            description: $app->description,
-            domain: $app->domain,
-            is_actived: $app->is_actived,
-            ecosystem_auth: $app->ecosystem_auth,
-            default_apps_plan_id: $app->default_apps_plan_id,
-            payments_active: $app->payments_active,
-            is_public: $app->is_public,
-            domain_based: $app->domain_based,
-            created_at: $app->created_at->format('Y-m-d H:i:s'),
-            updated_at: $app->updated_at->format('Y-m-d H:i:s'),
-            is_deleted: $app->is_deleted,
-            settings: $app->settings->where('is_deleted', 0),
-            roles: $app->roles->where('is_deleted', 0)
+            id: $company->id,
+            users_id: $company->users_id,
+            system_modules_id: $company->system_modules_id,
+            currency_id: $company->currency_id,
+            uuid: $company->uuid,
+            name: $company->name,
+            profile_image: $company->profile_image,
+            website: $company->website,
+            address: $company->address,
+            zipcode: $company->zipcode,
+            email: $company->email,
+            language: $company->language,
+            timezone: $company->timezone,
+            phone: $company->phone,
+            created_at: $company->created_at->format('Y-m-d H:i:s'),
+            updated_at: $company->updated_at->format('Y-m-d H:i:s'),
+            is_deleted: $company->is_deleted,
         );
     }
 
@@ -95,15 +95,20 @@ class SingleResponseData extends DataTransferObject
     public static function fromArray(array $data) : self
     {
         return new self(
+            id: (int)$data['id'],
+            users_id: (int)$data['users_id'],
+            system_modules_id: (int)$data['system_modules_id'],
+            currency_id: (int)$data['currency_id'],
+            uuid: $data['uuid'],
             name: $data['name'],
-            url: $data['url'],
-            description: $data['description'],
-            domain: $data['domain'],
-            is_actived: (int)$data['is_actived'],
-            ecosystem_auth: (int)$data['ecosystem_auth'],
-            payments_active: (int)$data['payments_active'],
-            is_public: (int)$data['is_public'],
-            domain_based: (int)$data['domain_based']
+            profile_image: $data['profile_image'],
+            website: $data['website'],
+            address: $data['address'],
+            zipcode: $data['zipcode'],
+            email: $data['email'],
+            language: $data['language'],
+            timezone: $data['timezone'],
+            phone: $data['phone'],
         );
     }
 }

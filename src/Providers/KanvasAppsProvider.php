@@ -27,23 +27,27 @@ class KanvasAppsProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (Schema::hasTable('apps') && Apps::find(1)) {
-            $request = new Request();
-            $domainBasedApp = (bool)getenv('KANVAS_CORE_DOMAIN_BASED_APP');
-            $domainName = $request->getHttpHost();
-            $appKey = config('kanvas.app.id');
+        $request = new Request();
+        $domainBasedApp = (bool)getenv('KANVAS_CORE_DOMAIN_BASED_APP');
+        $domainName = $request->getHttpHost();
+        $appKey = config('kanvas.app.id');
+        try {
+            if (Schema::hasTable('apps') && Apps::find(1)) {
 
-            // $app = !$domainBasedApp ? AppsRepository::findFirstByKey($appKey) : AppsRepository::getByDomainName($domainName);
-            $app = AppsRepository::findFirstByKey($appKey);
 
-            if (!$app) {
-                $msg = !$domainBasedApp ? 'No App configure with this key ' . $appKey : 'No App configure by this domain ' . $domainName;
-                throw new Exception($msg);
+                // $app = !$domainBasedApp ? AppsRepository::findFirstByKey($appKey) : AppsRepository::getByDomainName($domainName);
+                $app = AppsRepository::findFirstByKey($appKey);
+
+                if (!$app) {
+                    $msg = !$domainBasedApp ? 'No App configure with this key ' . $appKey : 'No App configure by this domain ' . $domainName;
+                    throw new Exception($msg);
+                }
+
+                $this->app->bind(Apps::class, function () use ($app) {
+                    return $app;
+                });
             }
-
-            $this->app->bind(Apps::class, function () use ($app) {
-                return $app;
-            });
+        } catch (\Throwable $th) {
         }
     }
 }

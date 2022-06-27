@@ -4,26 +4,27 @@ declare(strict_types=1);
 
 namespace Kanvas\Auth\Traits;
 
-use Kanvas\Auth\Jwt;
 use DateTimeImmutable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Kanvas\Auth\Jwt;
+use Kanvas\Sessions\Sessions\Models\Sessions;
+use Kanvas\Users\Users\Models\Users;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\ValidationData;
-use Illuminate\Support\Str;
-use Kanvas\Users\Users\Models\Users;
-use Illuminate\Http\Request;
-use Kanvas\Sessions\Sessions\Models\Sessions;
 
 trait TokenTrait
 {
 
-     /**
-     * User variable
+    /**
+     * User variable.
+     *
      * @var Users
      */
     protected Users $user;
-    
+
     /**
      * Returns the string token.
      *

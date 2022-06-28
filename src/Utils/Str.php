@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Kanvas\Utils;
 
-class Str
+use Illuminate\Support\Str as IlluminateStr;
+
+class Str extends IlluminateStr
 {
     /**
      * Converts the underscore_notation to the UpperCamelCase.
@@ -25,20 +27,6 @@ class Str
         }
 
         return $string;
-    }
-
-    /**
-     * Check if a string is ends with a given substring.
-     * public static function endsWith($haystack, $needle).
-     *
-     * @param string $haystack
-     * @param string $needle
-     *
-     * @return bool
-     */
-    public static function endsWith(string $haystack, string $needle) : bool
-    {
-        return mb_substr($haystack, -mb_strlen($needle)) === $needle;
     }
 
     /**
@@ -68,20 +56,6 @@ class Str
     public static function includes(string $needle, string $haystack) : bool
     {
         return self::contains($haystack, $needle);
-    }
-
-    /**
-     * Lets you determine whether or not a string includes another string.
-     *
-     * @param string $needle
-     * @param string $haystack
-     * contains('This is an example string', 'example');
-     *
-     * @return bool
-     */
-    public static function contains(string $haystack, string $needle) : bool
-    {
-        return '' === $needle || false !== mb_strpos($haystack, $needle);
     }
 
     /**
@@ -131,19 +105,6 @@ class Str
     public static function palindrome(string $string) : bool
     {
         return strrev($string) === $string;
-    }
-
-    /**
-     *  Check if a string is starts with a given substring.
-     *
-     * @param string $haystack
-     * @param string $needle
-     *
-     * @return bool
-     */
-    public static function startsWith(string $haystack, string $needle) : bool
-    {
-        return mb_substr($haystack, 0, mb_strlen($needle)) === $needle;
     }
 
     /**
@@ -223,18 +184,6 @@ class Str
     }
 
     /**
-     * Generate none-unicode slugs for simple parsing.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    public static function slug(string $string) : string
-    {
-        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
-    }
-
-    /**
      * Given a json string decode it into array.
      *
      * @param mixed $string
@@ -243,6 +192,6 @@ class Str
      */
     public static function jsonToArray($string)
     {
-        return is_string($string) && Json::isJson($string) ? json_decode($string, true) : $string;
+        return is_string($string) && self::isJson($string) ? json_decode($string, true) : $string;
     }
 }

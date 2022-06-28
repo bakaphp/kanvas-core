@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kanvas\Traits;
 
 use Exception;
-use Kanvas\Utils\Json;
+use Kanvas\Utils\Str;
 use RuntimeException;
 
 trait HashTableTrait
@@ -112,7 +112,7 @@ trait HashTableTrait
         $value = $this->getSettingsByKey($key);
 
         if (is_object($value)) {
-            return !Json::isJson($value->value) ? $value->value : json_decode($value->value, true);
+            return !Str::isJson($value->value) ? $value->value : json_decode($value->value, true);
         }
 
         return null;

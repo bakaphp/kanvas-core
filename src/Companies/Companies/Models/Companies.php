@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Kanvas\Companies\Companies\Models;
 
-use Kanvas\Models\BaseModel;
-use Kanvas\Companies\Companies\Factories\CompaniesFactory;
-use Kanvas\Users\Users\Models\Users;
-use Kanvas\SystemModules\Models\SystemModules;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Companies\Branches\Models\CompaniesBranches;
+use Kanvas\Companies\Companies\Enums\Defaults;
+use Kanvas\Companies\Companies\Factories\CompaniesFactory;
 use Kanvas\Companies\Groups\Models\CompaniesGroups;
+use Kanvas\Models\BaseModel;
+use Kanvas\SystemModules\Models\SystemModules;
+use Kanvas\Traits\UsersAssociatedTrait;
+use Kanvas\Users\Users\Models\Users;
 
 /**
- * Companies Model
+ * Companies Model.
  *
  * @property int $users_id
  * @property int $system_modules_id
@@ -33,6 +36,8 @@ use Kanvas\Companies\Groups\Models\CompaniesGroups;
  */
 class Companies extends BaseModel
 {
+    use UsersAssociatedTrait;
+
     /**
      * The table associated with the model.
      *
@@ -41,17 +46,17 @@ class Companies extends BaseModel
     protected $table = 'companies';
 
     /**
-    * Create a new factory instance for the model.
-    *
-    * @return \Illuminate\Database\Eloquent\Factories\Factory
-    */
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
     protected static function newFactory()
     {
         return CompaniesFactory::new();
     }
 
     /**
-     * CompaniesBranches relationship
+     * CompaniesBranches relationship.
      *
      * @return hasMany
      */
@@ -62,7 +67,7 @@ class Companies extends BaseModel
 
 
     /**
-     * CompaniesGroups relationship
+     * CompaniesGroups relationship.
      *
      * @return hasMany
      */
@@ -72,32 +77,56 @@ class Companies extends BaseModel
     }
 
     /**
-     * Users relationship
+     * Users relationship.
      *
      * @return Users
      */
-    public function user(): Users
+    public function user() : BelongsTo
     {
         return $this->belongsTo(Users::class, 'users_id');
     }
 
     /**
-     * SystemModules relationship
+     * SystemModules relationship.
      *
      * @return SystemModules
      */
-    public function systemModule(): SystemModules
+    public function systemModule() : BelongsTo
     {
         return $this->belongsTo(SystemModules::class, 'system_modules_id');
     }
 
     /**
-    * Currencies relationship
-    *
-    * @return Currencies
-    */
-    public function currency(): Currencies
+     * Currencies relationship.
+     *
+     * @return Currencies
+     */
+    public function currency() : BelongsTo
     {
         return $this->belongsTo(Currencies::class, 'currency_id');
+    }
+
+    /**
+     * Get the default company key for the current app
+     * this is use to store in redis the default company id for the current
+     * user in session every time they switch between companies on the diff apps.
+     *
+     * @return string
+     */
+    public static function cacheKey() : string
+    {
+        return Defaults::DEFAULT_COMPANY->getValue() . app(Apps::class)->id;
+    }
+
+    /**
+     * Get the default company key for the current app
+     * this is use to store in redis the default company id for the current
+     * user in session every time they switch between companies on the diff apps.
+     *
+     * @return string
+     */
+    public function branchCacheKey() : string
+    {
+        return  Defaults::DEFAULT_COMPANY_BRANCH_APP->getValue() . app(Apps::class)->id . '_' . $this->getId();
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Kanvas\Http\Middleware;
 
 use Closure;

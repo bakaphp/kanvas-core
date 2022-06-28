@@ -2,22 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\Http\Controllers\Apps;
+namespace Kanvas\Http\Controllers\Companies;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Kanvas\Apps\Apps\Actions\CreateAppsAction;
-use Kanvas\Apps\Apps\Actions\UpdateAppsAction;
-use Kanvas\Apps\Apps\DataTransferObject\AppsPostData;
-use Kanvas\Apps\Apps\DataTransferObject\AppsPutData;
-use Kanvas\Apps\Apps\DataTransferObject\CollectionResponseData;
-use Kanvas\Apps\Apps\DataTransferObject\SingleResponseData;
-use Kanvas\Apps\Apps\Models\Apps;
+use Kanvas\Companies\Companies\Actions\CreateCompaniesAction;
+use Kanvas\Companies\Companies\Actions\UpdateCompaniesAction;
+use Kanvas\Companies\Companies\DataTransferObject\CollectionResponseData;
+use Kanvas\Companies\Companies\DataTransferObject\CompaniesPostData;
+use Kanvas\Companies\Companies\DataTransferObject\CompaniesPutData;
+use Kanvas\Companies\Companies\DataTransferObject\SingleResponseData;
+use Kanvas\Companies\Companies\Events\AfterSignupEvent;
+use Kanvas\Companies\Companies\Models\Companies;
+use Kanvas\Companies\Companies\Repositories\CompaniesRepository;
 use Kanvas\Enums\HttpDefaults;
 use Kanvas\Http\Controllers\BaseController;
 use Kanvas\Users\Users\Models\Users;
 
-class AppsController extends BaseController
+class CompaniesController extends BaseController
 {
     /**
      * DI User.
@@ -46,7 +48,7 @@ class AppsController extends BaseController
     public function index() : JsonResponse
     {
         $limit = HttpDefaults::RECORDS_PER_PAGE;
-        $results = Apps::paginate($limit->getValue());
+        $results = Companies::paginate($limit->getValue());
         $collection = CollectionResponseData::fromModelCollection($results);
 
         return response()->json($collection->formatResponse());
@@ -59,8 +61,9 @@ class AppsController extends BaseController
      */
     public function show(int $id) : JsonResponse
     {
-        $app = Apps::findOrFail($id); // Query should be done before passing to dto ?
-        $response = SingleResponseData::fromModel($app);
+        $company = Companies::findOrFail($id);
+        event(new AfterSignupEvent($company));
+        $response = SingleResponseData::fromModel($company);
         return response()->json($response);
     }
 
@@ -71,9 +74,12 @@ class AppsController extends BaseController
      */
     public function create(Request $request) : JsonResponse
     {
-        $data = AppsPostData::fromRequest($request);
-        $app = new CreateAppsAction($data);
-        return response()->json($app->execute());
+        $data = CompaniesPostData::fromRequest($request);
+        $company = new CreateCompaniesAction($data);
+        $company = $company->execute();
+        CompaniesRepository::createBranch($company);
+        $response = SingleResponseData::fromModel($company);
+        return response()->json($response);
     }
 
     /**
@@ -83,9 +89,9 @@ class AppsController extends BaseController
      */
     public function update(Request $request, int $id) : JsonResponse
     {
-        $data = AppsPutData::fromRequest($request);
-        $app = new UpdateAppsAction($data);
-        return response()->json($app->execute($id));
+        $data = CompaniesPutData::fromRequest($request);
+        $company = new UpdateCompaniesAction($data);
+        return response()->json($company->execute($id));
     }
 
     /**
@@ -95,7 +101,7 @@ class AppsController extends BaseController
      */
     public function destroy(int $id) : JsonResponse
     {
-        Apps::findOrFail($id)->delete();
+        Companies::findOrFail($id)->delete();
         return response()->json('Succesfully Deleted');
     }
 }

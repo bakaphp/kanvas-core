@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Kanvas\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use Kanvas\Apps\Apps\Models\Apps;
-use Kanvas\Users\Users\DataTransferObject\RegisterPostData;
 use Illuminate\Http\JsonResponse;
-use Kanvas\Http\Controllers\BaseController;
-use Kanvas\Users\Users\Actions\RegisterUsersAction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
-use Kanvas\Users\Users\Models\Users;
+use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Auth\Traits\AuthTrait;
 use Kanvas\Auth\Traits\TokenTrait;
+use Kanvas\Http\Controllers\BaseController;
+use Kanvas\Users\Users\Actions\RegisterUsersAction;
+use Kanvas\Users\Users\DataTransferObject\RegisterPostData;
 
 class AuthController extends BaseController
 {
@@ -22,12 +21,13 @@ class AuthController extends BaseController
     use TokenTrait;
 
     /**
-     * Fetch all apps
+     * Fetch all apps.
      *
      * @return JsonResponse
+     *
      * @todo Need to move this pagination somewhere else.
      */
-    public function login(Request $request): JsonResponse
+    public function login(Request $request) : JsonResponse
     {
         $validator = Validator::make(
             $request->all(),
@@ -51,11 +51,11 @@ class AuthController extends BaseController
     }
 
     /**
-     * Fetch all apps
+     * Fetch all apps.
      *
      * @return JsonResponse
      */
-    public function register(Request $request): JsonResponse
+    public function register(Request $request) : JsonResponse
     {
         $validator = Validator::make(
             $request->all(),
@@ -79,8 +79,8 @@ class AuthController extends BaseController
 
         return response()->json(
             [
-            "user" => $this->user,
-            "session" => $tokenResponse
+                'user' => $this->user,
+                'session' => $tokenResponse
             ]
         );
     }

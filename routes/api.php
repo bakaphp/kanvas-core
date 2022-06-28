@@ -22,11 +22,22 @@ Route::middleware(['auth'])->group(function () {
     /**
      * Apps Routes.
      */
-    Route::group(['controller' => '\Kanvas\Http\Controllers\Apps\AppsController'], function () {
+    Route::group(['controller' => \Kanvas\Http\Controllers\Apps\AppsController::class], function () {
         Route::get('/apps', 'index');
         Route::get('/apps/{id}', 'show');
         Route::post('/apps', 'create');
         Route::put('/apps/{id}', 'update');
         Route::delete('/apps/{id}', 'destroy');
+    });
+
+    /**
+     * Companies Routes.
+     */
+    Route::group(['controller' => \Kanvas\Http\Controllers\Companies\CompaniesController::class], function () {
+        Route::get('/companies', 'index');
+        Route::get('/companies/{id}', 'show');
+        Route::post('/companies', 'create');
+        Route::put('/companies/{id}', 'update');
+        Route::delete('/companies/{id}', 'destroy');
     });
 });

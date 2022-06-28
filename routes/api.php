@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function () {
     /**
      * Apps Routes.
      */
-    Route::group(['controller' => '\Kanvas\Http\Controllers\Apps\AppsController'], function () {
+    Route::group(['controller' => \Kanvas\Http\Controllers\Apps\AppsController::class], function () {
         Route::get('/apps', 'index');
         Route::get('/apps/{id}', 'show');
         Route::post('/apps', 'create');
@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
     /**
      * Companies Routes.
      */
-    Route::group(['controller' => '\Kanvas\Http\Controllers\Companies\CompaniesController'], function () {
+    Route::group(['controller' => \Kanvas\Http\Controllers\Companies\CompaniesController::class], function () {
         Route::get('/companies', 'index');
         Route::get('/companies/{id}', 'show');
         Route::post('/companies', 'create');

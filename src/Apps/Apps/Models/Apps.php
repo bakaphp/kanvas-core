@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Kanvas\Apps\Apps\Models;
 
-use Kanvas\Models\BaseModel;
-use Kanvas\Apps\Settings\Models\Settings;
-use Kanvas\Apps\Roles\Models\Roles;
 use Kanvas\Apps\Apps\Factories\AppsFactory;
+use Kanvas\Apps\Roles\Models\Roles;
+use Kanvas\Apps\Settings\Models\Settings;
+use Kanvas\Models\BaseModel;
 
 /**
- * Apps Model
+ * Apps Model.
  *
  * @property int $id
  * @property string $key
@@ -37,17 +37,17 @@ class Apps extends BaseModel
     protected $table = 'apps';
 
     /**
-    * Create a new factory instance for the model.
-    *
-    * @return \Illuminate\Database\Eloquent\Factories\Factory
-    */
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
     protected static function newFactory()
     {
         return AppsFactory::new();
     }
 
     /**
-     * Settings relationship
+     * Settings relationship.
      *
      * @return hasMany
      */
@@ -57,12 +57,22 @@ class Apps extends BaseModel
     }
 
     /**
-     * Roles relationship
+     * Roles relationship.
      *
      * @return Roles
      */
     public function roles()
     {
         return $this->hasMany(Roles::class, 'apps_id');
+    }
+
+    /**
+     * Is this app subscription based?
+     *
+     * @return bool
+     */
+    public function usesSubscriptions() : bool
+    {
+        return (bool) $this->payments_active;
     }
 }

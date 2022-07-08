@@ -8,7 +8,7 @@ use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Companies\Branches\Models\CompaniesBranches;
 use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Exceptions\InternalServerErrorException;
-use Kanvas\UserCompanyApps\Models\UserCompanyApps;
+use Kanvas\Users\CompanyApps\Models\UserCompanyApps;
 
 class CompaniesRepository
 {
@@ -66,8 +66,8 @@ class CompaniesRepository
     public static function registerInApp(Companies $company, Apps $app) : bool
     {
         $companyApps = new UserCompanyApps();
-        $companyApps->companies_id = $company->getId();
-        $companyApps->apps_id = $app->getId();
+        $companyApps->companies_id = $company->getKey();
+        $companyApps->apps_id = $app->getKey();
         $companyApps->created_at = date('Y-m-d H:i:s');
         $companyApps->is_deleted = 0;
 

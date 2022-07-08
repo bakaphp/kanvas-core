@@ -21,7 +21,7 @@ class RolesRepository
      *
      * @todo Need to fetch app and company id from ACL on container instead of apps and userdata from DI.
      */
-    public static function getByName(Roles $role, string $name, ?Companies $company = null) : Roles
+    public static function getByName(string $name, ?Companies $company = null) : Roles
     {
         $app = app(Apps::class);
         $userData = app('userData');

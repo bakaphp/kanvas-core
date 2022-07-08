@@ -9,8 +9,9 @@ use Baka\Http\Exception\UnauthorizedException;
 use Kanvas\Apps\Apps\Enums\Defaults as AppsDefaults;
 use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Companies\Companies\Models\Companies;
-use Kanvas\Roles\Roles\Models\Roles;
-use Kanvas\Roles\UserRoles\Models\UserRoles;
+use Kanvas\Roles\Models\Roles;
+use Kanvas\Roles\Repositories\RolesRepository;
+use Kanvas\Users\Roles\Models\UserRoles;
 use Kanvas\Utils\Str;
 
 trait PermissionsTrait
@@ -36,7 +37,7 @@ trait PermissionsTrait
         }
 
         $company = $company !== null ? $company : $this->defaultCompany();
-        $role = Roles::getByName($role, $company);
+        $role = RolesRepository::getByName($role, $company);
 
         $app = app(Apps::class);
         $appId = $role->apps_id == AppsDefaults::CANVAS_DEFAULT_APP_ID->getValue() ? $app->getKey() : $role->apps_id;

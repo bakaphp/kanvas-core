@@ -12,7 +12,6 @@ use Kanvas\Companies\Companies\DataTransferObject\CollectionResponseData;
 use Kanvas\Companies\Companies\DataTransferObject\CompaniesPostData;
 use Kanvas\Companies\Companies\DataTransferObject\CompaniesPutData;
 use Kanvas\Companies\Companies\DataTransferObject\SingleResponseData;
-use Kanvas\Companies\Companies\Events\AfterSignupEvent;
 use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Companies\Companies\Repositories\CompaniesRepository;
 use Kanvas\Enums\HttpDefaults;
@@ -62,7 +61,6 @@ class CompaniesController extends BaseController
     public function show(int $id) : JsonResponse
     {
         $company = Companies::findOrFail($id);
-        event(new AfterSignupEvent($company));
         $response = SingleResponseData::fromModel($company);
         return response()->json($response);
     }

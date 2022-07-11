@@ -9,95 +9,84 @@ use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Companies\Companies\Repositories\CompaniesRepository;
 use Kanvas\Companies\Groups\Models\CompaniesGroups;
 use Kanvas\Companies\Groups\Repositories\CompaniesGroupsRepository;
+use Kanvas\Roles\Enums\Defaults as RolesDefaults;
+use Kanvas\Users\AssociatedApps\Actions\AssociateUsersAppsAction;
+use Kanvas\Users\AssociatedCompanies\Actions\AssociateUsersCompaniesAction;
 use Log;
 
 class AfterSignupListener implements ShouldQueue
 {
-    /**
-     * The name of the connection the job should be sent to.
-     *
-     * @var string|null
-     */
-    public $connection = 'rabbitmq';
-
-    /**
-     * The name of the queue the job should be sent to.
-     *
-     * @var string|null
-     */
-    public $queue = 'listeners';
-
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Bind Companies Groups and Companies.
      *
      * @param  \App\Events\OrderCreated  $event
      *
      * @return void
+     *
+     * @todo Cant complete the listener because there are no subscriptions or acl features yet.
      */
     public function handle(AfterSignupEvent $event)
     {
-        Log::info('AfterSignupListener call');
-        // $app = app(Apps::class);
-        // $userData = app('userData');
+        $company = $event->company;
+        $app = app(Apps::class);
+        $userData = $event->user;
 
-        // //Set Default Company if record is not found
-        // if (!$company->user->get(Companies::cacheKey())) {
-        //     $company->user->set(Companies::cacheKey(), $company->getId());
-        // }
+        //Set Default Company if record is not found
+        if (!$company->user->get(Companies::cacheKey())) {
+            $company->user->set(Companies::cacheKey(), $company->getKey());
+        }
 
-        // $company->associate($company->user, $company);
-        // $app->associate($company->user, $company);
+        $assocCompanies = new AssociateUsersCompaniesAction($company->user, $company);
+        $assocCompanies->execute();
 
-        // //create default branch
-        // $branch = CompaniesRepository::createBranch($company);
+        $assocApps = new AssociateUsersAppsAction($company->user, $company);
+        $assocApps->execute();
+
+        $branch = CompaniesRepository::createBranch($company);
+
+        Log::info('Companies Branch: ', [$branch]);
 
         // //Set Default Company Branch if record is not found
-        // if (!$company->user->get($company->branchCacheKey())) {
-        //     $company->user->set($company->branchCacheKey(), $company->branch->getId());
-        // }
+        if (!$company->user->get($company->branchCacheKey())) {
+            $company->user->set($company->branchCacheKey(), $company->branch->getKey());
+        }
 
-        // //look for the default plan for this app
-        // CompaniesRepository::registerInApp($company, $app);
+        //look for the default plan for this app
+        CompaniesRepository::registerInApp($company, $app);
 
-        // $companiesGroup = CompaniesGroups::where('apps_id', $app->getKey())
-        //                     ->where('users_id', $userData->getKey())
-        //                     ->first();
+        $companiesGroup = CompaniesGroups::where('apps_id', $app->getKey())
+                            ->where('users_id', $userData->getKey())
+                            ->first();
 
-        // if (!$companiesGroup) {
-        //     $companiesGroup = new CompaniesGroups();
-        //     $companiesGroup->apps_id = $app->getKey();
-        //     $companiesGroup->users_id = $userData->getKey();
-        // }
+        if (!$companiesGroup) {
+            $companiesGroup = new CompaniesGroups();
+            $companiesGroup->name = $company->name;
+            $companiesGroup->apps_id = $app->getKey();
+            $companiesGroup->users_id = $userData->getKey();
+            $companiesGroup->is_default = 1;
+            $companiesGroup->save();
+        }
 
-        // /**
-        //  * Let's associate companies and companies_groups.
-        //  */
-        // CompaniesGroupsRepository::associate($companiesGroup, $company);
+        /**
+         * Let's associate companies and companies_groups.
+         */
+        $companiesAssoc = CompaniesGroupsRepository::associate($companiesGroup, $company);
 
-        // /**
-        //  * only assign a role to the user within the company if its not a new signup
-        //  * but the creation of a new company to a already user of the app.
-        //  */
+        /**
+         * only assign a role to the user within the company if its not a new signup
+         * but the creation of a new company to a already user of the app.
+         */
         // if (!$company->user->isFirstSignup()) {
-        //     $company->user->assignRole(Roles::DEFAULT, $company);
+        //     $company->user->assignRole(RolesDefaults::DEFAULT->getValue(), $company);
         // }
 
-        // // //if the app is subscription based, create a free trial for this companyGroup and this app
-        // // if ($app->usesSubscriptions()) {
-        // //     $companiesGroup->startFreeTrial(
-        // //         $companiesGroup,
-        // //         $company,
-        // //         $branch
-        // //     );
-        // // }
+        //if the app is subscription based, create a free trial for this companyGroup and this app
+        // if ($app->usesSubscriptions()) {
+        //     $companiesGroup->startFreeTrial(
+        //         $companiesGroup,
+        //         $company,
+        //         $branch
+        //     );
+        // }
     }
 }

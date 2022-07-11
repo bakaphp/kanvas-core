@@ -9,8 +9,9 @@ use Kanvas\Companies\Branches\Models\CompaniesBranches;
 use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Models\BaseModel;
 use Kanvas\Traits\HashTableTrait;
+use Kanvas\Traits\PermissionsTrait;
 use Kanvas\Traits\UsersAssociatedTrait;
-use Kanvas\Users\UserConfig\Models\UserConfig;
+use Kanvas\Users\Config\Models\UserConfig;
 
 /**
  * Apps Model.
@@ -66,6 +67,7 @@ class Users extends BaseModel
 {
     use HashTableTrait;
     use UsersAssociatedTrait;
+    use PermissionsTrait;
 
     /**
      * The table associated with the model.

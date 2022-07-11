@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Kanvas\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -17,9 +15,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
+        \Kanvas\Companies\Companies\Events\AfterSignupEvent::class => [
+            \Kanvas\Companies\Companies\Listeners\AfterSignupListener::class,
+        ]
     ];
 
     /**
@@ -40,6 +38,10 @@ class EventServiceProvider extends ServiceProvider
         \Kanvas\Companies\Companies\Models\Companies::observe(
             \Kanvas\Companies\Companies\Observers\CompaniesObserver::class
         );
+
+        \Kanvas\Companies\Groups\Models\CompaniesGroups::observe(
+            \Kanvas\Companies\Groups\Observers\CompaniesGroupsObserver::class
+        );
     }
 
     /**
@@ -49,6 +51,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function shouldDiscoverEvents()
     {
-        return false;
+        return true;
     }
 }

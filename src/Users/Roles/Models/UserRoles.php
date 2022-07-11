@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Kanvas\UserCompanyApps\Models;
+namespace Kanvas\Users\Roles\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Kanvas\Apps\Apps\Models\Apps;
 use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Models\BaseModel;
+use Kanvas\Roles\Models\Roles;
 use Kanvas\Users\Users\Models\Users;
 
 /**
- * UserCompanyApps Model.
+ * UserRoles Model.
  *
  * @property int $users_id
- * @property int $companies_id
  * @property int $apps_id
- * @property string $stripe_id
- * @property int $subscriptions_id
+ * @property int $roles_id
+ * @property int $companies_id
  */
-class UserCompanyApps extends BaseModel
+class UserRoles extends BaseModel
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'user_company_apps';
+    protected $table = 'user_roles';
 
     /**
      * Users relationship.
@@ -43,9 +43,9 @@ class UserCompanyApps extends BaseModel
      *
      * @return Users
      */
-    public function company() : BelongsTo
+    public function role() : BelongsTo
     {
-        return $this->belongsTo(Companies::class, 'companies_id');
+        return $this->belongsTo(Roles::class, 'roles_id');
     }
 
     /**
@@ -55,6 +55,16 @@ class UserCompanyApps extends BaseModel
      */
     public function app() : BelongsTo
     {
-        return $this->belongsTo(Apps::class, 'apps_id');
+        return $this->belongsTo(Apps::class, 'users_id');
+    }
+
+    /**
+     * Users relationship.
+     *
+     * @return Users
+     */
+    public function company() : BelongsTo
+    {
+        return $this->belongsTo(Companies::class, 'users_id');
     }
 }

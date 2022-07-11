@@ -36,7 +36,7 @@ use Kanvas\Users\Users\Models\Users;
  */
 class Companies extends BaseModel
 {
-    use UsersAssociatedTrait;
+    // use UsersAssociatedTrait;
 
     /**
      * The table associated with the model.
@@ -63,6 +63,16 @@ class Companies extends BaseModel
     public function branches()
     {
         return $this->hasMany(CompaniesBranches::class, 'companies_id');
+    }
+
+    /**
+     * CompaniesBranches relationship.
+     *
+     * @return hasOne
+     */
+    public function branch()
+    {
+        return $this->hasOne(CompaniesBranches::class, 'companies_id');
     }
 
 
@@ -127,6 +137,6 @@ class Companies extends BaseModel
      */
     public function branchCacheKey() : string
     {
-        return  Defaults::DEFAULT_COMPANY_BRANCH_APP->getValue() . app(Apps::class)->id . '_' . $this->getId();
+        return  Defaults::DEFAULT_COMPANY_BRANCH_APP->getValue() . app(Apps::class)->id . '_' . $this->getKey();
     }
 }

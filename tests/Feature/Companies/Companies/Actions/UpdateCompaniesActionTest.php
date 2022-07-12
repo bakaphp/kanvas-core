@@ -17,7 +17,7 @@ final class UpdateCompaniesActionTest extends TestCase
      */
     public function testUpdateCompaniesAction() : void
     {
-        $company = Companies::factory(1)->create();
+        $company = Companies::factory(1)->create()->first();
         $faker = \Faker\Factory::create();
         $data = [
             'name' => $faker->company,
@@ -29,7 +29,7 @@ final class UpdateCompaniesActionTest extends TestCase
 
         $this->assertInstanceOf(
             Companies::class,
-            $updateCompany->execute($company->getKey())
+            $updateCompany->execute($company->id)
         );
     }
 }

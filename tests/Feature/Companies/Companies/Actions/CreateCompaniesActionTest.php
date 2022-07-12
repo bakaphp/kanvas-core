@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Companies\Companies\Actions;
 
-use Kanvas\Companies\Companies\Actions\CreateAppsAction;
+use Kanvas\Companies\Companies\Actions\CreateCompaniesAction;
 use Kanvas\Companies\Companies\DataTransferObject\CompaniesPostData;
 use Kanvas\Companies\Companies\Models\Companies;
 use Kanvas\Users\Users\Models\Users;

@@ -4,6 +4,8 @@ namespace Kanvas\Users\Users\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Kanvas\Users\Users\Models\Users;
+use Kanvas\Roles\Models\Roles;
+use Kanvas\SystemModules\Models\SystemModules;
 use Illuminate\Support\Str;
 
 /**
@@ -25,6 +27,8 @@ class UsersFactory extends Factory
      */
     public function definition()
     {
+        $systemModule = SystemModules::first();
+        $role = Roles::first();
         return [
             "firstname" => $this->faker->firstName(),
             "lastname" => $this->faker->lastName(),
@@ -32,6 +36,9 @@ class UsersFactory extends Factory
             "email" => $this->faker->email(),
             "password" => Str::random(10),
             "default_company" => 1,
+            "user_active" => 1,
+            "roles_id" => $role->getKey(),
+            "system_modules_id" => $systemModule->getKey(),
         ];
     }
 }

@@ -26,12 +26,9 @@ class SystemModulesFactory extends Factory
      */
     public function definition()
     {
-        $app = Apps::first() ?? Apps::factory(1)->create();
-
-        print_r($app);
-        die();
+        $appCollection = Apps::first() ?? Apps::factory(1)->create();
         return [
-            "apps_id" => $app->getKey(),
+            "apps_id" => $appCollection->first()->getKey(),
             "name" => $this->faker->name(),
             "slug" => $this->faker->slug(),
             "model_name" => $this->faker->name(),

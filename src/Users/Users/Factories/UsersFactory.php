@@ -27,8 +27,8 @@ class UsersFactory extends Factory
      */
     public function definition()
     {
-        $systemModule = SystemModules::factory(1)->create();
-        $role = Roles::factory(1)->create();
+        $systemModule = SystemModules::factory(1)->create()->first();
+        $role = Roles::factory(1)->create()->first();
         return [
             "firstname" => $this->faker->firstName(),
             "lastname" => $this->faker->lastName(),
@@ -37,8 +37,8 @@ class UsersFactory extends Factory
             "password" => Str::random(10),
             "default_company" => 1,
             "user_active" => 1,
-            "roles_id" => $role->getKey(),
-            "system_modules_id" => $systemModule->getKey(),
+            "roles_id" => $role->id,
+            "system_modules_id" => $systemModule->id,
         ];
     }
 }

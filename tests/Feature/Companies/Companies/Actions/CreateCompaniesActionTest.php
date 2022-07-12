@@ -19,7 +19,7 @@ final class CreateCompaniesActionTest extends TestCase
     public function testCreateCompaniesAction() : void
     {
         $faker = \Faker\Factory::create();
-        $user = Users::factory(1)->create();
+        $user = Users::factory(1)->create()->first();
         $data = [
             'name' => $faker->company,
             'users_id' => $user->getKey()

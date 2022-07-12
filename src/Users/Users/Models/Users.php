@@ -12,6 +12,7 @@ use Kanvas\Traits\HashTableTrait;
 use Kanvas\Traits\PermissionsTrait;
 use Kanvas\Traits\UsersAssociatedTrait;
 use Kanvas\Users\Config\Models\UserConfig;
+use Kanvas\Users\Users\Factories\UsersFactory;
 
 /**
  * Apps Model.
@@ -75,6 +76,17 @@ class Users extends BaseModel
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return UsersFactory::new();
+    }
+
 
     /**
      * Default Company relationship.

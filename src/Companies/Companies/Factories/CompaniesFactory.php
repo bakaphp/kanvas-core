@@ -5,6 +5,7 @@ namespace Kanvas\Companies\Companies\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Kanvas\Roles\Models\Roles;
 use Kanvas\Companies\Companies\Models\Companies;
+use Kanvas\Users\Users\Models\Users;
 use Kanvas\SystemModules\Models\SystemModules;
 use Kanvas\Currencies\Models\Currencies;
 use Illuminate\Support\Str;
@@ -17,7 +18,7 @@ class CompaniesFactory extends Factory
     /**
     * The name of the factory's corresponding model.
     *
-    * @var Apps
+    * @var Companies
     */
     protected $model = Companies::class;
 
@@ -28,13 +29,9 @@ class CompaniesFactory extends Factory
      */
     public function definition()
     {
-        $user = Users::first();
-        $systemModule = SystemModules::first();
-        $currency = Currencies::first();
+        $user = Users::factory(1)->create()->first();
         return [
             "users_id" => $user->id,
-            "system_modules_id" => $systemModule->id,
-            "currency_id" => $currency->id,
             "uuid" => Str::random(10),
             "name" => $this->faker->name(),
             "profile_image" => $this->faker->name(),

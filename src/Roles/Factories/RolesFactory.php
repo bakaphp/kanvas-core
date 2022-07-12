@@ -27,8 +27,8 @@ class RolesFactory extends Factory
      */
     public function definition()
     {
-        // $companies = Companies::first();
-        $app = Apps::first();
+        $app = Apps::first() ?? Apps::factory(1)->create()->first();
+
         return [
             "companies_id" => 1,
             "apps_id" => $app->id,

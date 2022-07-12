@@ -35,7 +35,7 @@ class AppsFactory extends Factory
             "payments_active" => 1,
             "is_public" => 1,
             "domain_based" => 1,
-            "domain" => $this->faker->url(),
+            "domain" => $this->faker->domainName(),
             "is_deleted" => 0
         ];
     }

@@ -19,7 +19,6 @@ final class UpdateCompaniesActionTest extends TestCase
     {
         $company = Companies::factory(1)->create();
         $faker = \Faker\Factory::create();
-
         $data = [
             'name' => $faker->company,
         ];

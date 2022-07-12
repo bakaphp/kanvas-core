@@ -28,7 +28,7 @@ class SystemModulesFactory extends Factory
     {
         $app = Apps::first() ?? Apps::factory(1)->create();
         return [
-            "apps_id" => $app->id,
+            "apps_id" => $app->getKey(),
             "name" => $this->faker->name(),
             "slug" => $this->faker->slug(),
             "model_name" => $this->faker->name(),

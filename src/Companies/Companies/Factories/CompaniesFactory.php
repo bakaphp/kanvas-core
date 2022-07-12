@@ -29,7 +29,7 @@ class CompaniesFactory extends Factory
      */
     public function definition()
     {
-        $user = Users::first();
+        $user = Users::factory(1)->create();
         $systemModule = SystemModules::first();
         $currency = Currencies::first();
         return [

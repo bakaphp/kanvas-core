@@ -5,6 +5,7 @@ namespace Kanvas\Companies\Companies\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Kanvas\Roles\Models\Roles;
 use Kanvas\Companies\Companies\Models\Companies;
+use Kanvas\Users\Users\Models\Users;
 use Kanvas\SystemModules\Models\SystemModules;
 use Kanvas\Currencies\Models\Currencies;
 use Illuminate\Support\Str;
@@ -17,7 +18,7 @@ class CompaniesFactory extends Factory
     /**
     * The name of the factory's corresponding model.
     *
-    * @var Apps
+    * @var Companies
     */
     protected $model = Companies::class;
 

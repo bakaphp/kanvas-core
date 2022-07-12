@@ -15,16 +15,15 @@ final class UpdateCompaniesActionTest extends TestCase
      *
      * @return void
      */
-    public function testCreateAppsAction() : void
+    public function testUpdateCompaniesAction() : void
     {
-        $company = Companies::factory()->create();
+        $company = Companies::factory(1)->create();
         $faker = \Faker\Factory::create();
 
         $data = [
-            'url' => $faker->company,
+            'name' => $faker->company,
         ];
 
-        //Create new AppsPostData
         $dtoData = CompaniesPutData::fromArray($data);
 
         $updateCompany = new UpdateCompaniesAction($dtoData);

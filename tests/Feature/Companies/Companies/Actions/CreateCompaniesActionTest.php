@@ -22,7 +22,7 @@ final class CreateCompaniesActionTest extends TestCase
         $user = Users::factory(1)->create()->first();
         $data = [
             'name' => $faker->company,
-            'users_id' => $user->getKey()
+            'users_id' => $user->id
         ];
         //Create new AppsPostData
         $dtoData = CompaniesPostData::fromArray($data);

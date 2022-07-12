@@ -29,13 +29,9 @@ class CompaniesFactory extends Factory
      */
     public function definition()
     {
-        $user = Users::factory(1)->create();
-        $systemModule = SystemModules::first();
-        $currency = Currencies::first();
+        $user = Users::factory(1)->create()->first();
         return [
             "users_id" => $user->id,
-            "system_modules_id" => $systemModule->id,
-            "currency_id" => $currency->id,
             "uuid" => Str::random(10),
             "name" => $this->faker->name(),
             "profile_image" => $this->faker->name(),

@@ -27,8 +27,8 @@ class UsersFactory extends Factory
      */
     public function definition()
     {
-        $systemModule = SystemModules::first();
-        $role = Roles::first();
+        $systemModule = SystemModules::factory(1)->create();
+        $role = Roles::factory(1)->create();
         return [
             "firstname" => $this->faker->firstName(),
             "lastname" => $this->faker->lastName(),

@@ -27,11 +27,11 @@ class RolesFactory extends Factory
      */
     public function definition()
     {
-        $appCollection = Apps::first() ?? Apps::factory(1)->create();
+        $app = Apps::first() ?? Apps::factory(1)->create()->first();
 
         return [
             "companies_id" => 1,
-            "apps_id" => $appCollection->first()->getKey(),
+            "apps_id" => $app->id,
             "name" => $this->faker->name(),
             "description" => $this->faker->sentence(3),
             "scope" => 0,
